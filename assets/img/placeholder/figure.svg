@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 900" width="420" height="900"
+     role="img" aria-label="Placeholder figure — replace with a cut-out photo">
+<!-- PLACEHOLDER standing figure, drawn only so the hero composition reads.
+     Replace with a real full-length cut-out PNG of Mariia (background
+     removed, transparent). That one swap is what makes this page work. -->
+<g>
+  <!-- legs, very slightly apart -->
+  <path fill="#c6bdaf" d="M168 548h44l-8 268h-44z"/>
+  <path fill="#cfc7ba" d="M216 548h44l10 268h-44z"/>
+  <!-- shoes -->
+  <path fill="#1b1917" d="M154 812h50l2 30h-62c-5 0-8-5-5-9z"/>
+  <path fill="#1b1917" d="M222 812h50l14 21c3 4 0 9-5 9h-61z"/>
+  <!-- skirt -->
+  <path fill="#26231f" d="M140 424h146l26 136H116z"/>
+  <!-- torso -->
+  <path fill="#ece6dc" d="M152 186h122c26 0 42 18 46 44l14 106c2 16-6 26-20 28l-18 3 6 76H126l6-76-18-3c-14-2-22-12-20-28l14-106c4-26 18-44 44-44z"/>
+  <path fill="#d5cec1" d="M236 186h38c26 0 42 18 46 44l14 106c2 16-6 26-20 28l-18 3 6 76h-58l8-114z"/>
+  <!-- arms bent up toward the chest -->
+  <path fill="#ece6dc" d="M150 212c-18 12-26 36-29 62l-8 74c-2 19 11 31 27 26 15-5 20-17 22-34l13-81z"/>
+  <path fill="#d5cec1" d="M276 212c18 12 26 36 29 62l8 74c2 19-11 31-27 26-15-5-20-17-22-34l-13-81z"/>
+  <!-- hands -->
+  <ellipse cx="156" cy="358" rx="23" ry="20" fill="#dbd3c7"/>
+  <ellipse cx="270" cy="358" rx="23" ry="20" fill="#dbd3c7"/>
+  <!-- neck -->
+  <path fill="#cabfb2" d="M188 148h44v48h-44z"/>
+  <!-- face -->
+  <ellipse cx="210" cy="100" rx="53" ry="62" fill="#ddd5c9"/>
+  <!-- hair: bob, a little asymmetric -->
+  <path fill="#1b1917" d="M210 22c44 0 72 30 72 76 0 24-6 44-6 66 0 12 4 24 4 24l-30-10c-6-24-6-48-4-68-20 10-52 12-80 4-10-3-17-8-21-15-3 22-6 52-10 76l-30 12s9-19 9-38c0-21-5-37-5-54 0-46 28-73 71-73z"/>
+  <!-- glasses, drawn over the face -->
+  <g fill="none" stroke="#1b1917" stroke-width="7">
+    <rect x="163" y="118" width="44" height="34" rx="6"/>
+    <rect x="213" y="118" width="44" height="34" rx="6"/>
+    <path d="M207 133h6"/>
+  </g>
+</g>
+</svg>

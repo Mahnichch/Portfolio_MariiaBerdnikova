@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240" role="img" aria-label="Research placeholder thumbnail">
+<!-- PLACEHOLDER. Replace with a real cut-out PNG (transparent background, no frame). -->
+<g>
+  <!-- torn-edge block, stands in for a cut-out image -->
+  <path fill="#2233dd" d="M14 26c62-10 128-14 214-8 42 3 74 2 78 14 5 14 2 62-2 108-3 34 4 60-14 68-22 10-96 4-160 6-44 2-86 8-104-2-16-9-12-52-12-92 0-42-6-86 0-94z"/>
+  <path fill="#141210" d="M216 120h64v6h-64z"/>
+  <g transform="translate(224 136) scale(0.62)">
+    <path fill="#141210" d="M98 50 61.3 56.5 74 91.6 50 63 26 91.6 38.7 56.5 2 50 38.7 43.5 26 8.4 50 37 74 8.4 61.3 43.5Z"/>
+  </g>
+  <text x="26" y="200" font-family="Shantell Sans, cursive" font-size="74"
+        font-weight="700" fill="#141210">06</text>
+  <text x="26" y="44" font-family="Inter, sans-serif" font-size="10"
+        font-weight="600" letter-spacing="2.2" fill="#141210">PLACEHOLDER</text>
+</g>
+</svg>

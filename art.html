@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-accent="pink">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art — Mariia Berdnikova</title>
+<meta name="description" content="Visual work by Mariia Berdnikova — collage, graphics, stills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Shantell+Sans:BNCE,INFM,SPAC,wght@-100..100,0..100,0..100,300..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<script src="assets/js/sprite.js"></script>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <header class="page-head">
+    <p class="label" data-reveal><a class="back-link scribble" href="index.html"><svg class="deco" aria-hidden="true" focusable="false"><use href="#arrow"/></svg>Back</a></p>
+    <nav class="site-nav" aria-label="Primary" data-reveal>
+      <a class="label label-box" href="about.html">About</a>
+      <a class="label label-box" href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <h1 class="display display--tilt display--bleed-l" data-reveal>ART</h1>
+    <ul class="label-row" style="margin-top:18px" data-reveal>
+      <li class="label label-box">Own work</li>
+      <li class="label label-box">Collage / graphics / stills</li>
+      <li class="label label-box">Ongoing</li>
+    </ul>
+
+    <p class="body-col" style="margin-top:36px" data-reveal>Pieces I make for myself rather than for a client or a stage. Mostly collage, some type, some stills pulled out of things I was filming anyway.</p>
+
+    <!-- ===================================================================
+         ART WALL — placeholder slots.
+
+         TODO: replace each <img> src with a real image and rewrite its
+         <figcaption>. Keep the layout uneven on purpose: vary --w, nudge
+         --rot a degree or two, and let items overlap by giving neighbours
+         close --x / --y values. --z decides what sits on top.
+
+         Under 860px these stop being absolutely positioned and stack.
+         =================================================================== -->
+    <div class="art-wall">
+
+      <figure class="art-slot" data-reveal style="--x:2%;  --y:2%;  --w:30%; --rot:-3deg; --z:2">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-1.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:38%; --y:9%;  --w:24%; --rot:4deg;  --z:3">
+        <!-- TODO: replace -->
+        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-2.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:68%; --y:0%;  --w:28%; --rot:-2deg; --z:1">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-3.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:10%; --y:34%; --w:26%; --rot:5deg;  --z:4">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-4.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:44%; --y:40%; --w:34%; --rot:-4deg; --z:2">
+        <!-- TODO: replace -->
+        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-5.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:4%;  --y:66%; --w:22%; --rot:2deg;  --z:3">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-6.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:34%; --y:72%; --w:28%; --rot:-5deg; --z:5">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-7.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <figure class="art-slot" data-reveal style="--x:68%; --y:60%; --w:26%; --rot:3deg;  --z:1">
+        <!-- TODO: replace -->
+        <img class="cutout" src="assets/img/placeholder/slot-8.svg" alt="" width="340" height="260">
+        <figcaption class="label label-box">TODO — title / year</figcaption>
+      </figure>
+
+      <svg class="deco deco--float" data-parallax="0.06" aria-hidden="true" focusable="false"
+           style="--x:63%; --y:31%; --w:70px; --rot:-12deg"><use href="#star-8"/></svg>
+      <svg class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
+           style="--x:88%; --y:44%; --w:80px; --rot:10deg"><use href="#spiral"/></svg>
+    </div>
+
+  </main>
+
+  <footer class="site-foot">
+    <p class="label label--sm">Mariia Berdnikova</p>
+    <p class="label label--sm"><a class="scribble" href="contact.html">Say hi</a></p>
+  </footer>
+
+</div>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

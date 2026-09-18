@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" width="340" height="260" role="img" aria-label="Placeholder image slot 2">
+<!-- PLACEHOLDER. Replace with a real cut-out PNG (transparent background, no frame). -->
+<g>
+  <path fill="#22c55e" d="M10 18c70-12 150-10 220-4 24 2 40 0 44 12 4 14 2 70-2 118-2 26 2 46-14 52-20 8-90 2-150 4-40 2-78 6-94-2-14-8-10-46-10-82 0-38-4-90-4-98z"/>
+  <g transform="translate(248 26) scale(0.5)">
+    <path fill="#141210" d="M98 50 61.3 56.5 74 91.6 50 63 26 91.6 38.7 56.5 2 50 38.7 43.5 26 8.4 50 37 74 8.4 61.3 43.5Z"/>
+  </g>
+  <text x="24" y="226" font-family="Inter, sans-serif" font-size="10"
+        font-weight="600" letter-spacing="2.2" fill="#141210">PLACEHOLDER 02</text>
+</g>
+</svg>
