@@ -83,6 +83,12 @@ further would cut the first and last letters off the name. **If you replace
 the film with one whose content is not tight to the frame edges**, drop the
 `min-aspect-ratio` rule in `site.css` and let it always `cover`.
 
+On a phone the hero is deliberately **not** a full screen. The film is 16:9,
+so on a tall narrow screen it can only ever be a band across the middle, and
+stretching the hero to 100vh just adds empty cream above and below it. It is
+sized to its contents instead, the film runs edge to edge, and the greeting
+and the first project rows land inside the first screen.
+
 Below the hero, `.work-list` is the project index; add or reorder rows.
 
 **Collages** (project pages, `art.html`) — every item is placed with

@@ -800,29 +800,35 @@ button:focus-visible,
 /* On a narrow screen the hero stops being an absolutely-positioned collage
    and becomes an ordinary column: asides, film, labels. */
 @media (max-width: 860px) {
+  /* The film is 16:9, so on a tall phone screen it can never be more than a
+     band across the middle. Forcing the hero to a full 100vh therefore just
+     bought two big areas of empty cream — so the hero is only as tall as
+     what is in it, and the greeting and project list come straight after,
+     inside the first screen. */
   .hero-stage {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    gap: 6px;
-    padding: 13vh 5vw 6vh;
+    justify-content: flex-start;
+    min-height: 0;
+    gap: 14px;
+    padding: 2.6vh 5vw 3.4vh;
   }
   .hero-nav {
-    position: absolute;
-    top: 2.4vh;
-    left: 5vw;
+    position: static;
     transform: none;
     flex-wrap: wrap;
   }
   .scrawl { font-size: clamp(19px, 5.4vw, 30px); }
   .scrawl--second { font-size: clamp(16px, 4.6vw, 26px); margin-left: 0.9em; }
 
+  /* Full width of the screen, not inset — the film is small enough on a
+     phone without giving away margins to cream. */
   .hero-video {
-    width: 100%;
+    width: 100vw;
+    margin: 0 0 0 -5vw;
     max-height: none;
-    align-self: center;
-    margin: 3vh 0;
+    align-self: flex-start;
   }
   /* Touch has no hover, so the control stays visible. */
   .video-toggle { opacity: 1; }
