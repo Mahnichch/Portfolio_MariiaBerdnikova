@@ -663,21 +663,22 @@ button:focus-visible,
   background: var(--cream);
 }
 
-/* Pause control. Hidden until site.js confirms it can drive the video, so
-   it never appears as a dead button. */
+/* Pause control. Hidden until site.js confirms it can drive the video, so it
+   never appears as a dead button. It stays visible rather than waiting for a
+   hover: it is the only way to stop the film, and anyone who asked for
+   reduced motion needs to be able to find Play. */
 .video-toggle {
   position: absolute;
   right: 10px;
   bottom: 10px;
-  z-index: 3;
+  z-index: 6;
   cursor: pointer;
   font-family: 'Inter', system-ui, sans-serif;
-  opacity: 0;
-  transition: opacity 0.18s var(--ease);
 }
-.hero-video:hover .video-toggle,
-.video-toggle:focus-visible { opacity: 1; }
 .video-toggle[hidden] { display: none; }
+
+.hero-scroll { position: absolute; z-index: 6; bottom: 4.5vh; left: 50%;
+               transform: translateX(-50%); }
 
 /* --- handwritten asides ------------------------------------------------ */
 
@@ -753,6 +754,42 @@ button:focus-visible,
 .work-row__meta { flex: 0 0 auto; }
 .work-row__no { color: var(--accent); }
 
+/* From laptop width up the film fills the whole first screen, edge to edge.
+   Everything else that sits on it — nav, corner labels, the scroll cue, the
+   pause control — is a cream label box, so it stays readable over any frame.
+   The handwritten asides and the scattered decoration are ink drawn for a
+   cream page; there is no cream left here, so they step aside and the film
+   carries the screen on its own. */
+@media (min-width: 861px) {
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+  /* The film's closing card sets the handwritten name almost edge to edge,
+     so it cannot survive being cropped horizontally: `contain` holds the
+     full width and pays for it with two thin cream bands, which is why the
+     corner labels sit in them. */
+  .hero-video video { object-fit: contain; }
+
+  .scrawl { display: none; }
+  .hero-stage .deco--float { display: none; }
+
+  .hero-corner { bottom: 4.5vh; }
+  .video-toggle { right: 4vw; bottom: auto; top: 4.5vh; }
+}
+
+/* On a screen 16:9 or wider there is no horizontal crop to fear — `cover`
+   only trims top and bottom, well clear of the name — so the film fills the
+   viewport completely, edge to edge. */
+@media (min-width: 861px) and (min-aspect-ratio: 16 / 9) {
+  .hero-video video { object-fit: cover; }
+}
+
 /* On a narrow screen the hero stops being an absolutely-positioned collage
    and becomes an ordinary column: asides, film, labels. */
 @media (max-width: 860px) {
@@ -795,4 +832,7 @@ button:focus-visible,
 
   /* Scattered decoration has nowhere to sit on a phone; it just collides. */
   .hero-stage .deco--float { display: none; }
+
+  /* The project list follows the film directly, so no cue is needed. */
+  .hero-scroll { display: none; }
 }

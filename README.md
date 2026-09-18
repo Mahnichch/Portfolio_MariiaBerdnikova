@@ -64,10 +64,21 @@ files small. The poster is what shows before the film loads and for anyone
 who has asked their system for reduced motion — the film does not autoplay
 for them, and a Play control appears instead.
 
-**The front page** (`index.html`) — one full screen: the film
-(`.hero-video`) with the handwritten asides (`.scrawl`) and the corner
-labels around it. Below the hero, `.work-list` is the project index; add or
-reorder rows there.
+**The front page** (`index.html`) — one full screen. From laptop width up
+the film fills the viewport and everything over it (nav, corner labels,
+scroll cue, pause control) is a cream label box so it stays readable on any
+frame; the handwritten asides and scattered decoration are ink meant for a
+cream page, so they show only on mobile, where the hero is a normal column.
+
+The film is fitted, not cropped, unless the screen is 16:9 or wider. That is
+deliberate: the closing card sets the handwritten name almost edge to edge,
+so a horizontal crop cuts the first and last letters off. On a 16:10 laptop
+you get the full width plus two thin cream bands, which is where the corner
+labels sit. **If you replace the film with one whose content is not tight to
+the frame edges**, you can drop that rule in `site.css` and let it always
+`cover`.
+
+Below the hero, `.work-list` is the project index; add or reorder rows.
 
 **Collages** (project pages, `art.html`) — every item is placed with
 `--x`, `--y`, `--w`, `--rot` and `--z` inline. Keep it uneven: vary the

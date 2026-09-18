@@ -32,9 +32,14 @@
     var toggle = wrap.querySelector('.video-toggle');
     if (!video || !toggle) return;
 
+    // Set once the visitor stops the film themselves. Nothing may restart it
+    // after that — not the canplay retry below, not a re-buffer.
+    var userPaused = false;
+
     if (reduced) {
       video.autoplay = false;
       video.pause();
+      userPaused = true;
     }
 
     function label() {
@@ -48,10 +53,12 @@
 
     toggle.addEventListener('click', function () {
       if (video.paused) {
+        userPaused = false;
         var p = video.play();
         // play() rejects if the browser blocks it; keep the label honest.
         if (p && p.catch) p.catch(function () { label(); });
       } else {
+        userPaused = true;
         video.pause();
       }
     });
@@ -62,7 +69,7 @@
     // Some browsers refuse autoplay until the file can play through; retry
     // once it can, unless reduced motion asked us not to.
     video.addEventListener('canplay', function () {
-      if (!reduced && video.paused && video.autoplay) {
+      if (!reduced && !userPaused && video.paused && video.autoplay) {
         var p = video.play();
         if (p && p.catch) p.catch(function () {});
       }
