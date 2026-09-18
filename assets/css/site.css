@@ -680,30 +680,12 @@ button:focus-visible,
 .hero-scroll { position: absolute; z-index: 6; bottom: 4.5vh; left: 50%;
                transform: translateX(-50%); }
 
-/* --- handwritten asides ------------------------------------------------ */
+/* --- handwritten greeting ---------------------------------------------- */
 
-/* Both lines live in one note, stacked, instead of being split across the
-   screen. Over the film it carries a cream backing so it stays legible on
-   any frame; on mobile the backing is dropped and it is just text on cream. */
+/* Sits below the film, at the head of the project list, where handwriting
+   can lie straight on the cream and needs no backing to stay readable. */
 .scrawl-note {
-  position: absolute;
-  z-index: 5;
-  top: 4.5vh;
-  left: 4vw;
-  margin: 0;
-  max-width: min(46vw, 620px);
-  background: var(--cream);
-  border: 1px solid var(--ink);
-  padding: 14px 18px 16px;
-}
-.scrawl-note::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: -4px;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
+  margin: 0 0 clamp(26px, 4vw, 52px);
 }
 
 .scrawl {
@@ -711,15 +693,15 @@ button:focus-visible,
   font-family: 'Shantell Sans', 'Permanent Marker', cursive;
   font-variation-settings: 'BNCE' -20, 'INFM' 90, 'SPAC' 0;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.18;
   color: var(--ink);
-  font-size: clamp(16px, 1.9vw, 30px);
+  font-size: clamp(21px, 2.9vw, 46px);
 }
-/* The second line is set a touch smaller and nudged in, so the note reads as
-   handwriting rather than as two stacked headlines. */
+/* Second line set a little smaller and stepped in, the way the sentence
+   would actually be written by hand. */
 .scrawl--second {
-  font-size: clamp(14px, 1.6vw, 25px);
-  margin-left: 1.2em;
+  font-size: clamp(18px, 2.4vw, 38px);
+  margin-left: 1.4em;
 }
 
 /* --- corner labels ----------------------------------------------------- */
@@ -802,6 +784,7 @@ button:focus-visible,
 
   .hero-corner { bottom: 4.5vh; }
   .video-toggle { right: 4vw; bottom: auto; top: 4.5vh; }
+
 }
 
 /* Edge-to-edge full screen. The threshold is measured, not guessed: the
@@ -832,16 +815,8 @@ button:focus-visible,
     transform: none;
     flex-wrap: wrap;
   }
-  .scrawl-note {
-    position: static;
-    max-width: none;
-    background: none;
-    border: 0;
-    padding: 0;
-  }
-  .scrawl-note::before { display: none; }
-  .scrawl { font-size: clamp(16px, 4.7vw, 27px); }
-  .scrawl--second { font-size: clamp(14px, 4vw, 23px); margin-left: 0; }
+  .scrawl { font-size: clamp(19px, 5.4vw, 30px); }
+  .scrawl--second { font-size: clamp(16px, 4.6vw, 26px); margin-left: 0.9em; }
 
   .hero-video {
     width: 100%;

@@ -65,10 +65,14 @@ who has asked their system for reduced motion — the film does not autoplay
 for them, and a Play control appears instead.
 
 **The front page** (`index.html`) — one full screen. From laptop width up
-the film fills the viewport and everything over it (nav, corner labels,
-scroll cue, pause control) is a cream label box so it stays readable on any
-frame; the handwritten asides and scattered decoration are ink meant for a
-cream page, so they show only on mobile, where the hero is a normal column.
+the film fills the viewport and the only things over it are the nav, the two
+corner labels, the scroll cue and the pause control — all cream label boxes,
+so they stay readable on any frame. Nothing else sits on the film: the
+handwritten greeting lives below it, at the head of the project list, where
+it can lie straight on the cream. That is not decoration-shyness — behind
+that corner the film swings from near-white plaid to dark sky to plum, so no
+single text colour stays legible and anything placed there needs a backing
+box, which looked like a dialog.
 
 The film fills the screen from 16:10 up, which covers every common laptop
 and monitor. That threshold is measured rather than guessed: the handwritten
