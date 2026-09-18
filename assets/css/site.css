@@ -682,23 +682,45 @@ button:focus-visible,
 
 /* --- handwritten asides ------------------------------------------------ */
 
-.scrawl {
+/* Both lines live in one note, stacked, instead of being split across the
+   screen. Over the film it carries a cream backing so it stays legible on
+   any frame; on mobile the backing is dropped and it is just text on cream. */
+.scrawl-note {
   position: absolute;
-  z-index: 3;
+  z-index: 5;
+  top: 4.5vh;
+  left: 4vw;
+  margin: 0;
+  max-width: min(46vw, 620px);
+  background: var(--cream);
+  border: 1px solid var(--ink);
+  padding: 14px 18px 16px;
+}
+.scrawl-note::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+
+.scrawl {
   margin: 0;
   font-family: 'Shantell Sans', 'Permanent Marker', cursive;
   font-variation-settings: 'BNCE' -20, 'INFM' 90, 'SPAC' 0;
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--ink);
-  font-size: clamp(17px, 2.5vw, 40px);
-  pointer-events: none;
+  font-size: clamp(16px, 1.9vw, 30px);
 }
-.scrawl--hi   { top: 5vh;  left: 4vw;  max-width: 42vw; }
-.scrawl--tour { top: 9vh;  right: 4vw; max-width: 34vw; text-align: right;
-                font-size: clamp(14px, 1.75vw, 28px); transform: rotate(-1.5deg); }
-.scrawl--this { top: 13vh; left: 25vw; transform: rotate(-3deg);
-                font-size: clamp(14px, 1.8vw, 30px); }
+/* The second line is set a touch smaller and nudged in, so the note reads as
+   handwriting rather than as two stacked headlines. */
+.scrawl--second {
+  font-size: clamp(14px, 1.6vw, 25px);
+  margin-left: 1.2em;
+}
 
 /* --- corner labels ----------------------------------------------------- */
 
@@ -776,17 +798,19 @@ button:focus-visible,
      corner labels sit in them. */
   .hero-video video { object-fit: contain; }
 
-  .scrawl { display: none; }
   .hero-stage .deco--float { display: none; }
 
   .hero-corner { bottom: 4.5vh; }
   .video-toggle { right: 4vw; bottom: auto; top: 4.5vh; }
 }
 
-/* On a screen 16:9 or wider there is no horizontal crop to fear — `cover`
-   only trims top and bottom, well clear of the name — so the film fills the
-   viewport completely, edge to edge. */
-@media (min-width: 861px) and (min-aspect-ratio: 16 / 9) {
+/* Edge-to-edge full screen. The threshold is measured, not guessed: the
+   handwritten name on the closing card leaves a 5.69% margin to the frame
+   edge, and `cover` on a 16:10 screen crops 5.0% per side — inside it, with
+   a little room. Every common laptop and desktop (16:10 and 16:9) is at or
+   above this, so they fill completely. Squarer windows fall back to the
+   fitted layout above rather than cutting letters off the name. */
+@media (min-width: 861px) and (min-aspect-ratio: 8 / 5) {
   .hero-video video { object-fit: cover; }
 }
 
@@ -808,15 +832,16 @@ button:focus-visible,
     transform: none;
     flex-wrap: wrap;
   }
-  .scrawl {
+  .scrawl-note {
     position: static;
     max-width: none;
-    text-align: left;
-    transform: none;
-    font-size: clamp(16px, 4.7vw, 27px);
+    background: none;
+    border: 0;
+    padding: 0;
   }
-  .scrawl--tour { font-size: clamp(14px, 4vw, 23px); transform: rotate(-1.5deg); }
-  .scrawl--this { display: none; }
+  .scrawl-note::before { display: none; }
+  .scrawl { font-size: clamp(16px, 4.7vw, 27px); }
+  .scrawl--second { font-size: clamp(14px, 4vw, 23px); margin-left: 0; }
 
   .hero-video {
     width: 100%;

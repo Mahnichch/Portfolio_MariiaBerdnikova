@@ -70,13 +70,14 @@ scroll cue, pause control) is a cream label box so it stays readable on any
 frame; the handwritten asides and scattered decoration are ink meant for a
 cream page, so they show only on mobile, where the hero is a normal column.
 
-The film is fitted, not cropped, unless the screen is 16:9 or wider. That is
-deliberate: the closing card sets the handwritten name almost edge to edge,
-so a horizontal crop cuts the first and last letters off. On a 16:10 laptop
-you get the full width plus two thin cream bands, which is where the corner
-labels sit. **If you replace the film with one whose content is not tight to
-the frame edges**, you can drop that rule in `site.css` and let it always
-`cover`.
+The film fills the screen from 16:10 up, which covers every common laptop
+and monitor. That threshold is measured rather than guessed: the handwritten
+name on the closing card leaves a 5.69% margin to the frame edge, and
+cropping to 16:10 takes 5.0% off each side — inside it. Squarer windows fall
+back to fitting the full width with thin cream bands, because cropping them
+further would cut the first and last letters off the name. **If you replace
+the film with one whose content is not tight to the frame edges**, drop the
+`min-aspect-ratio` rule in `site.css` and let it always `cover`.
 
 Below the hero, `.work-list` is the project index; add or reorder rows.
 
