@@ -7,7 +7,7 @@
 <meta name="description" content="Mariia (Mary) Berdnikova — creative producer working across music, media, film and event production. Kazan, Tatarstan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Inter:wght@400..800&family=Shantell+Sans:BNCE,INFM,SPAC,wght@-100..100,0..100,0..100,300..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Shantell+Sans:BNCE,INFM,SPAC,wght@-100..100,0..100,0..100,300..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/site.css">
 <script>document.documentElement.classList.add('js');</script>
@@ -18,7 +18,7 @@
 <a class="skip-link" href="#work">Skip to work</a>
 
 <!-- =======================================================================
-     HERO — one full screen. Wordmark behind, cut-out figure in front.
+     HERO — one full screen: Mariia's collage intro film.
      ======================================================================= -->
 <section class="hero-stage">
 
@@ -30,25 +30,31 @@
 
   <p class="scrawl scrawl--hi" data-reveal>Hi. Since you&rsquo;re new here,</p>
   <p class="scrawl scrawl--tour" data-reveal>let me show you around</p>
-  <p class="scrawl scrawl--this" data-reveal>this is</p>
 
-  <h1 class="wordmark" data-reveal>
-    <span class="wordmark__l1">MARIIA</span>
-    <span class="wordmark__l2">BERDNIKOVA</span>
-  </h1>
-
-  <!-- TODO: replace with a real cut-out PNG — full length, background
-       removed, transparent. That single swap is what makes this page. -->
-  <img class="hero-figure" src="assets/img/placeholder/figure.svg"
-       alt="Mariia Berdnikova" width="340" height="900" data-reveal>
+  <!-- The hero is Mariia's own collage intro. Source was HEVC in a .mov,
+       which Chrome and Firefox will not play. Both files below are transcodes
+       of it, silent, at 1600x900 — replace BOTH to change the film.
+       hero.mp4 (H.264) plays everywhere; hero.webm (VP9) is listed first
+       because some Linux Chromium builds ship without H.264 at all.
+       Autoplay only works while the video is muted and playsinline. -->
+  <figure class="hero-video" data-reveal>
+    <video
+      poster="assets/img/hero-poster.jpg"
+      autoplay muted loop playsinline preload="auto"
+      aria-label="Collage intro film by Mariia Berdnikova">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+    <button class="video-toggle label label-box" type="button" hidden>Pause</button>
+  </figure>
 
   <p class="label hero-corner hero-corner--bl" data-reveal>Creative producer / Music &middot; Media &middot; Film</p>
   <p class="label hero-corner hero-corner--br" data-reveal>Kazan, Tatarstan &mdash; 2026</p>
 
   <svg class="deco deco--float" data-parallax="0.05" aria-hidden="true" focusable="false"
-       style="--x:88%; --y:26%; --w:52px; --rot:-12deg"><use href="#star-8"/></svg>
+       style="--x:94%; --y:13%; --w:52px; --rot:-12deg"><use href="#star-8"/></svg>
   <svg class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
-       style="--x:6%; --y:78%; --w:58px; --rot:9deg"><use href="#spiral"/></svg>
+       style="--x:4%; --y:72%; --w:54px; --rot:9deg"><use href="#spiral"/></svg>
 </section>
 
 <div class="page">

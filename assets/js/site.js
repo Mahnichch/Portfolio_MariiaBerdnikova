@@ -5,6 +5,7 @@
    get the full page, just without the entry stagger, the thread draw-in and
    the scribbled link underlines.
 
+     0. Hero film: reduced motion + pause control
      1. Entry stagger (~300ms total)
      2. Thread draw-in + hover focus (index.html)
      3. Scribbled link underlines
@@ -15,6 +16,59 @@
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------------------------------------------------------------
+     0. Hero film.
+
+     The <video> carries `autoplay muted playsinline`, so it plays on its own
+     with JavaScript off. All this adds is: stop it for anyone who asked for
+     reduced motion, and give everyone a working pause control.
+     ------------------------------------------------------------------ */
+
+  function setupHeroVideo() {
+    var wrap = document.querySelector('.hero-video');
+    if (!wrap) return;
+    var video = wrap.querySelector('video');
+    var toggle = wrap.querySelector('.video-toggle');
+    if (!video || !toggle) return;
+
+    if (reduced) {
+      video.autoplay = false;
+      video.pause();
+    }
+
+    function label() {
+      var playing = !video.paused && !video.ended;
+      toggle.textContent = playing ? 'Pause' : 'Play';
+      toggle.setAttribute('aria-label', playing ? 'Pause the film' : 'Play the film');
+    }
+
+    toggle.hidden = false;
+    label();
+
+    toggle.addEventListener('click', function () {
+      if (video.paused) {
+        var p = video.play();
+        // play() rejects if the browser blocks it; keep the label honest.
+        if (p && p.catch) p.catch(function () { label(); });
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener('play', label);
+    video.addEventListener('pause', label);
+
+    // Some browsers refuse autoplay until the file can play through; retry
+    // once it can, unless reduced motion asked us not to.
+    video.addEventListener('canplay', function () {
+      if (!reduced && video.paused && video.autoplay) {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+      label();
+    });
+  }
 
   /* ---------------------------------------------------------------------
      1. Entry stagger — quick and confident, not slow and precious.
@@ -124,6 +178,7 @@
   /* ------------------------------------------------------------------ */
 
   function init() {
+    setupHeroVideo();
     stageEntry();
     setupThreads();
     setupScribbles();

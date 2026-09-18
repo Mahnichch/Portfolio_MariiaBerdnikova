@@ -7,7 +7,7 @@ refresh.
 ## Files
 
 ```
-index.html              the hero + the project index
+index.html              the hero film + the project index
 about.html
 art.html                own visual work (placeholder slots)
 contact.html
@@ -19,6 +19,8 @@ projects/
   short-film.html       Short film           — rust
   research.html         Music & liminality   — ultramarine
 assets/
+  video/hero.mp4        the front-page film (H.264)
+  video/hero.webm       the same film (VP9)
   css/site.css          all styling, commented by section
   js/sprite.js          the decorative SVG set (stars, scribbles, arrows…)
   js/site.js            entry stagger, hover underlines, scroll parallax
@@ -42,13 +44,30 @@ rounded corner. Add `class="cutout cutout--bw"` for a black-and-white one,
 `class="cutout"` for full colour. Delete `assets/img/placeholder/` once
 nothing points at it.
 
-**The front page** (`index.html`) — one full-bleed screen: the pink wordmark
-(`.wordmark`) sits behind the cut-out figure (`.hero-figure`), with the
-handwritten asides (`.scrawl`) and the corner labels around them. The
-wordmark's vertical position is a tuned `translateY` in the CSS, because
-Bagel Fat One's metrics put its ink well below its line box — if you swap
-that font, retune that one value. Below the hero, `.work-list` is the
-project index; add or reorder rows there.
+**The front-page film** — `assets/video/hero.mp4` and `hero.webm` are the
+same film in two formats; `index.html` lists both and the browser picks one,
+so **replace both** or the swap only reaches some visitors. `.mov` files
+straight off a phone usually will not work: they are often HEVC, which
+Chrome and Firefox refuse to play. Convert with
+[ffmpeg](https://ffmpeg.org) — from a source at `in.mov`:
+
+```bash
+ffmpeg -i in.mov -an -vf scale=1600:-2 -c:v libx264 -pix_fmt yuv420p \
+  -crf 27 -preset slower -movflags +faststart assets/video/hero.mp4
+ffmpeg -i in.mov -an -vf scale=1600:-2 -c:v libvpx-vp9 -crf 40 -b:v 0 \
+  -row-mt 1 assets/video/hero.webm
+ffmpeg -ss 0.2 -i in.mov -frames:v 1 -q:v 4 assets/img/hero-poster.jpg
+```
+
+`-an` drops the audio: browsers only autoplay muted video, and it keeps the
+files small. The poster is what shows before the film loads and for anyone
+who has asked their system for reduced motion — the film does not autoplay
+for them, and a Play control appears instead.
+
+**The front page** (`index.html`) — one full screen: the film
+(`.hero-video`) with the handwritten asides (`.scrawl`) and the corner
+labels around it. Below the hero, `.work-list` is the project index; add or
+reorder rows there.
 
 **Collages** (project pages, `art.html`) — every item is placed with
 `--x`, `--y`, `--w`, `--rot` and `--z` inline. Keep it uneven: vary the
@@ -90,17 +109,15 @@ under Settings → Pages → Custom domain.
 
 ## Fonts
 
-Loaded from Google Fonts over the network: **Bagel Fat One** (the fat pink
-wordmark on the front page), **Shantell Sans** (hand-drawn display lettering
-and the handwritten asides), **Inter** (tiny uppercase labels) and **Space
-Grotesk** (body). If they fail to load the page still works and falls back
-to system faces.
+Loaded from Google Fonts over the network: **Shantell Sans** (hand-drawn
+display lettering and the handwritten asides), **Inter** (tiny uppercase
+labels) and **Space Grotesk** (body). If they fail to load the page still
+works and falls back to system faces.
 
 Cyrillic: Shantell Sans and Inter both ship Cyrillic, so display titles and
 labels can be written in Russian directly (`СХОДКА`, `Музон`). Space Grotesk
 does not, so Cyrillic body text falls through to Inter — which is why Inter
-follows it in the stack. Bagel Fat One has no Cyrillic, so the front-page
-wordmark stays Latin.
+follows it in the stack.
 
 ## Accessibility & graceful degradation
 

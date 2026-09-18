@@ -628,9 +628,8 @@ button:focus-visible,
 /* =========================================================================
    12. HERO (index.html)
 
-   One full-bleed screen: a fat wordmark running off both edges, a cut-out
-   figure standing in front of it, handwritten asides, and tiny labels
-   pinned to the corners. Nothing else.
+   One full screen: Mariia's collage intro film, handwritten asides, and
+   tiny labels pinned to the corners. Nothing else.
    ========================================================================= */
 
 .hero-stage {
@@ -639,58 +638,46 @@ button:focus-visible,
   min-height: 100svh;
   display: grid;
   place-items: center;
-  /* The wordmark is wider than the screen on purpose. */
   overflow: hidden;
   padding: 0;
 }
 
-/* --- the wordmark ------------------------------------------------------ */
+/* --- the film ---------------------------------------------------------- */
 
-.wordmark {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  /* Bagel Fat One carries a lot of ascent, so the optical centre sits well
-     below the box centre — this pulls the two lines back up behind the
-     figure's torso rather than leaving them stranded at the bottom. */
-  transform: translateY(-72%);
-  margin: 0;
-  z-index: 1;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Bagel Fat One', 'Shantell Sans', cursive;
-  font-weight: 400;
-  color: var(--accent);
-  font-size: clamp(84px, 20vw, 310px);
-  line-height: 0.74;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-.wordmark span {
-  display: block;
-  /* Skew gives the upright face its leaning, groovy feel; the horizontal
-     stretch makes each line wide enough to run off both edges of the
-     screen, which is the whole point of the wordmark. */
-  transform: skewX(-7deg) scaleX(1.26);
-  transform-origin: left center;
-}
-/* First line pulls off the left edge; the second is set smaller so the whole
-   surname stays readable and only just bleeds off the right. */
-.wordmark__l1 { margin-left: -6vw; }
-.wordmark__l2 { margin-left: 2vw; font-size: 0.63em; }
-
-/* --- the figure -------------------------------------------------------- */
-
-.hero-figure {
+/* Sits flat on the cream like the photographs: no frame, no shadow, no
+   rounded corner. */
+.hero-video {
   position: relative;
   z-index: 2;
-  height: min(86vh, 880px);
-  width: auto;
-  max-width: none;
-  /* Sits flat on the cream: no frame, no shadow, no rounded corner. */
-  filter: grayscale(1) contrast(1.04);
+  margin: 0;
+  width: min(86vw, 1180px);
+  /* Reserve the space before the file arrives so nothing jumps on load. */
+  aspect-ratio: 16 / 9;
+  max-height: 68vh;
 }
+.hero-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--cream);
+}
+
+/* Pause control. Hidden until site.js confirms it can drive the video, so
+   it never appears as a dead button. */
+.video-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease);
+}
+.hero-video:hover .video-toggle,
+.video-toggle:focus-visible { opacity: 1; }
+.video-toggle[hidden] { display: none; }
 
 /* --- handwritten asides ------------------------------------------------ */
 
@@ -706,8 +693,8 @@ button:focus-visible,
   font-size: clamp(17px, 2.5vw, 40px);
   pointer-events: none;
 }
-.scrawl--hi   { top: 6vh;  left: 4vw;  max-width: 42vw; }
-.scrawl--tour { top: 15vh; right: 4vw; max-width: 34vw; text-align: right;
+.scrawl--hi   { top: 5vh;  left: 4vw;  max-width: 42vw; }
+.scrawl--tour { top: 9vh;  right: 4vw; max-width: 34vw; text-align: right;
                 font-size: clamp(14px, 1.75vw, 28px); transform: rotate(-1.5deg); }
 .scrawl--this { top: 13vh; left: 25vw; transform: rotate(-3deg);
                 font-size: clamp(14px, 1.8vw, 30px); }
@@ -767,8 +754,7 @@ button:focus-visible,
 .work-row__no { color: var(--accent); }
 
 /* On a narrow screen the hero stops being an absolutely-positioned collage
-   and becomes an ordinary column: asides, figure, labels. Only the wordmark
-   stays behind the figure. */
+   and becomes an ordinary column: asides, film, labels. */
 @media (max-width: 860px) {
   .hero-stage {
     display: flex;
@@ -795,15 +781,14 @@ button:focus-visible,
   .scrawl--tour { font-size: clamp(14px, 4vw, 23px); transform: rotate(-1.5deg); }
   .scrawl--this { display: none; }
 
-  .hero-figure {
-    height: min(50vh, 440px);
+  .hero-video {
+    width: 100%;
+    max-height: none;
     align-self: center;
-    margin: 2.5vh 0;
+    margin: 3vh 0;
   }
-
-  .wordmark { font-size: 20vw; transform: translateY(-46%); }
-  .wordmark__l1 { margin-left: 1vw; }
-  .wordmark__l2 { margin-left: -2vw; font-size: 0.78em; }
+  /* Touch has no hover, so the control stays visible. */
+  .video-toggle { opacity: 1; }
 
   .hero-corner { position: static; }
   .hero-corner--br { text-align: left; }
