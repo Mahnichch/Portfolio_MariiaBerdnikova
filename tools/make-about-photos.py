@@ -222,8 +222,8 @@ def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
     for i in range(points * 2):
         ang = rot + i * math.pi / points - math.pi / 2
         rad = R * (1 if i % 2 == 0 else inner)
-        rad *= 1 + rnd.uniform(-0.035, 0.035)
-        ang += rnd.uniform(-0.03, 0.03)
+        rad *= 1 + rnd.uniform(-0.085, 0.085)
+        ang += rnd.uniform(-0.055, 0.055)
         verts.append((cx + rad * math.cos(ang), cy + rad * math.sin(ang)))
 
     # Walk each edge as a quadratic curve whose control point is pulled back
@@ -233,7 +233,15 @@ def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
         p0 = verts[i]
         p1 = verts[(i + 1) % len(verts)]
         mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
-        ctrl = (mx + (cx - mx) * bow, my + (cy - my) * bow)
+        # Each edge bows by a different amount, and some of them bow the
+        # wrong way — an evenly tapered star is the thing that gives a
+        # generated shape away.
+        b = bow * rnd.uniform(0.35, 1.5)
+        ctrl = (mx + (cx - mx) * b, my + (cy - my) * b)
+        dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+        ln = math.hypot(dx, dy) or 1
+        k = ln * rnd.uniform(-0.05, 0.05)
+        ctrl = (ctrl[0] - dy / ln * k, ctrl[1] + dx / ln * k)
         for s in range(9):
             t = s / 9
             u = 1 - t
@@ -245,8 +253,9 @@ def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
     return layer.resize((size, size), Image.LANCZOS)
 
 
-def build_star_snap(path, out, seed, width=560, crop=None, star_scale=1.02,
-                    star_dy=-0.06, star_colour=(244, 132, 178)):
+def build_star_snap(path, out, seed, width=560, crop=None, star_scale=0.78,
+                    star_dx=0.08, star_dy=-0.20, star_rot=9,
+                    star_colour=(244, 132, 178)):
     """A torn photograph with a drawn star set BEHIND the person — inside the
     frame, between her and the background, the way the reference has it. That
     needs her segmented out of her own photograph so the star can go in
@@ -261,7 +270,11 @@ def build_star_snap(path, out, seed, width=560, crop=None, star_scale=1.02,
     g = ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1)
     flat = Image.merge('RGB', (g, g, g)).convert('RGBA')
 
-    cache = 'cut-snapstar-' + os.path.basename(path) + '.png'
+    # The mask belongs to one particular crop, so the crop is part of its
+    # name — reusing a mask cut from a different framing silently misplaces
+    # her, and the star then goes in front of an edge it should be behind.
+    tag = '-'.join('%.2f' % c for c in crop) if crop else 'full'
+    cache = 'cut-snapstar-%s-%s.png' % (os.path.basename(path), tag)
     if not os.path.exists(cache):
         from rembg import new_session, remove
         remove(im, session=new_session('u2net_human_seg'),
@@ -271,9 +284,15 @@ def build_star_snap(path, out, seed, width=560, crop=None, star_scale=1.02,
     person.putalpha(person_alpha)
 
     star_size = int(min(flat.size) * star_scale)
-    star = drawn_star(star_size, star_colour, seed=seed)
-    sx = (flat.width - star_size) // 2
-    sy = int(flat.height * 0.5 + flat.height * star_dy) - star_size // 2
+    star = drawn_star(star_size, star_colour, seed=seed,
+                      rot=math.radians(star_rot))
+    # Tilted, and set high and slightly right, so that all five points clear
+    # her outline. A star centred behind her cannot work at any size: its two
+    # lower points land on her chest, which is why only three of them used to
+    # show. Up here her head crosses one point instead of swallowing two, so
+    # the star still reads as being behind her.
+    sx = int(flat.width * (0.5 + star_dx)) - star_size // 2
+    sy = int(flat.height * (0.5 + star_dy)) - star_size // 2
 
     composed = flat.copy()
     composed.alpha_composite(star, (sx, sy))
@@ -306,7 +325,8 @@ if __name__ == '__main__':
                  keyed=FIGURE_IS_KEYED)
     build_duotone(p['duotone'], 'assets/img/about-duotone.png')
     # Black and white, with a drawn star behind her inside the frame.
-    build_star_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7,
-                    crop=(0.10, 0.14, 0.97, 0.94))
+    # The full frame, not a tight crop: she has to sit small enough in it to
+    # leave the star somewhere to put its points.
+    build_star_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7)
     build_snap(p['snap2'], 'assets/img/about-snap-2.png', seed=23, bw=True,
                crop=(0.12, 0.46, 0.88, 1.0))

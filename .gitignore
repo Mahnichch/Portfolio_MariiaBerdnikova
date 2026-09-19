@@ -1,0 +1,4 @@
+# Intermediates from tools/ — regenerated on demand, not part of the site.
+cut-*.png
+__pycache__/
+*.pyc

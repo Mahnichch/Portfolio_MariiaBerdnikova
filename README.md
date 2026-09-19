@@ -115,6 +115,13 @@ a data URI, so it costs no extra request. It sits about eight levels below
 the flat cream and can be dialled with the `amplitude` in its `feFuncA` — or
 removed entirely by deleting `background-image` from `body`.
 
+The stars and hearts are drawn rather than plotted — uneven arms, bowed
+edges, an overshoot where the pen comes back round. `tools/make-deco-symbols.py`
+generates their path data for `sprite.js`. They are also placed to keep clear
+of every photograph and text block at any window width, which is why the stage
+has a fixed `aspect-ratio`: it has to hold one shape, or the gaps they sit in
+close up as it narrows. Below 860px they join the stack instead of floating.
+
 Every photograph on it is **torn rather than cropped square**, and they come
 from four different shots — the same thing the reference does. Rebuild them
 all from new photographs with:

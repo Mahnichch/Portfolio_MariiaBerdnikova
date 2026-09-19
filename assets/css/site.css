@@ -39,7 +39,9 @@
      The site is written in Latin throughout — the projects are called
      MoozeOn and Shodka rather than their Russian names — so the display
      face needs no Cyrillic and carries no fallback for it. */
-  --font-display: 'Rock Salt', 'Permanent Marker', cursive;
+  --font-display: 'Shantell Sans', 'Permanent Marker', cursive;
+  /* Rock Salt is kept for one job only: the 01/02/03 on the work index. */
+  --font-numeral: 'Rock Salt', 'Permanent Marker', cursive;
   --font-label: 'Inter', system-ui, sans-serif;
   --font-body: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 
@@ -777,7 +779,14 @@ button:focus-visible,
   flex: 1 1 auto;
 }
 .work-row__meta { flex: 0 0 auto; }
-.work-row__no { color: var(--accent); }
+.work-row__no {
+  color: var(--accent);
+  /* The one place Rock Salt survives — it is doing numerals, not titles. */
+  font-family: var(--font-numeral);
+  font-size: 0.78em;
+  letter-spacing: 0.01em;
+  margin-right: 4px;
+}
 
 /* From laptop width up the film fills the whole first screen, edge to edge.
    Everything else that sits on it — nav, corner labels, the scroll cue, the
@@ -881,7 +890,11 @@ button:focus-visible,
 .scrapbook {
   position: relative;
   max-width: 1180px;
-  min-height: clamp(1000px, 115vw, 1650px);
+  /* A fixed ratio, not a min-height: every piece on the stage is placed as a
+     percentage, so the stage has to keep ONE shape or the vertical gaps
+     between pieces close up as it narrows — which is what used to push the
+     stars and hearts onto the photographs between 861px and 1180px. */
+  aspect-ratio: 1180 / 1650;
   /* auto on the inline axis, or the stage sits left instead of centred —
      and this must come after any margin shorthand, not before it. */
   margin: clamp(24px, 4vw, 48px) auto 0;
@@ -983,11 +996,20 @@ button:focus-visible,
 
 @media (max-width: 860px) {
   .scrapbook {
+    aspect-ratio: auto;
     min-height: 0;
     display: grid;
     gap: clamp(30px, 8vw, 52px);
     justify-items: start;
   }
+  .scrapbook .deco--float {
+    position: static;
+    transform: rotate(var(--rot, 0deg));
+    width: var(--w-mobile, 44px);
+    margin: 0;
+  }
+  .scrapbook .deco--float:nth-of-type(even) { justify-self: end; }
+
   .scrap {
     position: static;
     width: min(90%, 460px);
