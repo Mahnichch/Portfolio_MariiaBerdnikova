@@ -108,8 +108,12 @@ anchor. Every piece is a `.scrap` placed with `--x`, `--y`, `--w` and
 means editing those four numbers. Below 860px they stop being positioned and
 stack.
 
-It borrows the *arrangement* of a scrapbook but not its finish — the ground
-stays flat cream, and there is no aged paper, sepia or grain anywhere.
+It borrows the *arrangement* of a scrapbook but not its finish — no sepia,
+no ageing, no vintage. The ground is warm cream carrying a fine paper fibre:
+`--paper` in `site.css`, a seamlessly tiling `feTurbulence` written inline as
+a data URI, so it costs no extra request. It sits about eight levels below
+the flat cream and can be dialled with the `amplitude` in its `feFuncA` — or
+removed entirely by deleting `background-image` from `body`.
 
 Every photograph on it is **torn rather than cropped square**, and they come
 from four different shots — the same thing the reference does. Rebuild them
