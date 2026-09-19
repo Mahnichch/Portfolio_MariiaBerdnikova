@@ -42,11 +42,13 @@
   --font-display: 'Shantell Sans', 'Permanent Marker', cursive;
   /* Shantell Sans is variable: these two axes are its handwriting. BNCE is
      how far the letters bounce off the baseline, INFM how informal the
-     shapes are. Each role gets its own setting, as titles want less bounce
-     than a scrawled aside. */
-  --axes-display: 'BNCE' -40, 'INFM' 60, 'SPAC' 0;
-  --axes-scrawl: 'BNCE' -20, 'INFM' 90, 'SPAC' 0;
-  --axes-title: 'BNCE' -35, 'INFM' 50;
+     shapes are. POSITIVE bounce is the quirky direction — letters sit at
+     different heights. Negative flattens them onto one line, which is the
+     even, tidy setting we do not want. Each role gets its own: a scrawled
+     aside can bounce further than a title without becoming hard to read. */
+  --axes-display: 'BNCE' 80, 'INFM' 70, 'SPAC' 0;
+  --axes-scrawl: 'BNCE' 100, 'INFM' 90, 'SPAC' 0;
+  --axes-title: 'BNCE' 75, 'INFM' 55;
   /* Rock Salt is kept for one job only: the 01/02/03 on the work index. */
   --font-numeral: 'Rock Salt', 'Permanent Marker', cursive;
   --font-label: 'Inter', system-ui, sans-serif;
