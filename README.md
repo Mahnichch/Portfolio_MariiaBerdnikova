@@ -21,6 +21,7 @@ projects/
 tools/
   make-about-collage.py  regenerates the About collage from a photo
 assets/
+  img/about-collage.png  the About collage (transparent surround)
   video/hero.mp4        the front-page film (H.264)
   video/hero.webm       the same film (VP9)
   css/site.css          all styling, commented by section
@@ -101,9 +102,11 @@ absolutely positioned and stack automatically.
 
 ## The About collage
 
-`assets/img/about-collage.jpg` is built from a photograph: the person is cut
-out, turned black and white, given a sticker outline and set on flat blue
-with hand-drawn stars. To rebuild it from a different photo:
+`assets/img/about-collage.png` is built from a photograph: the person is cut
+out, turned black and white, given a sticker outline and set on a **torn
+organic patch** of flat blue with hand-drawn stars. It is a PNG, not a JPEG,
+because the patch is not a rectangle — the transparent surround is what lets
+it lie flat on the cream page. To rebuild it from a different photo:
 
 ```bash
 pip install pillow numpy "rembg[cpu]"
@@ -112,8 +115,18 @@ python3 tools/make-about-collage.py your-photo.jpg
 
 Add `cream` as a second argument for the alternative colourway (ultramarine
 ground with cream stars instead of blue and yellow). The first run downloads
-a ~176MB segmentation model; after that it is offline. Delete the
-`cut-raw.png` it leaves behind to re-cut from a new photo.
+a ~176MB segmentation model; after that it is offline. **Delete the
+`cut-raw.png` it leaves behind** before running it on a different photo —
+it is a cache, and it is not meant to be committed.
+
+The patch shape comes from `torn_patch()`, which sums sine waves around a
+radius: the low frequencies make it lopsided, the high ones make the edge
+torn. Change its `seed` for a different shape.
+
+If your photo is cropped mid-body like this one, the figure's lower edge is
+a straight cut across fabric. The script fades the bottom of the figure into
+the ground so that cut does not show; `fade_top` controls where the fade
+begins.
 
 This is a one-off tool, not a build step — the site itself still has none.
 Star positions, sizes and colours are plain numbers near the bottom of the
