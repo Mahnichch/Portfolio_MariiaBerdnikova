@@ -206,12 +206,11 @@ def build_duotone(path, out, width=900, crop=(0.16, 0.20, 1.0, 0.82)):
     print('wrote', out, res.size, os.path.getsize(out) // 1024, 'KB')
 
 
-def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
-               bow=0.16):
-    """A star that looks drawn with a marker rather than plotted: the sides
-    of each point bow inwards, every vertex is nudged off its true position,
-    and the whole thing is drawn at 4x and scaled down so the curves stay
-    smooth."""
+def drawn_star(size, colour, points=8, inner=0.30, rot=-0.12, seed=5,
+               bow=0.42, streaks=True):
+    """The spiky, marker-drawn star from the reference: eight long points with
+    deeply concave sides, and a few pale streaks left across the body where a
+    marker runs dry. Drawn at 4x and scaled down so the points stay clean."""
     S = 4
     n = size * S
     rnd = random.Random(seed)
@@ -222,39 +221,55 @@ def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
     for i in range(points * 2):
         ang = rot + i * math.pi / points - math.pi / 2
         rad = R * (1 if i % 2 == 0 else inner)
-        rad *= 1 + rnd.uniform(-0.085, 0.085)
-        ang += rnd.uniform(-0.055, 0.055)
+        rad *= 1 + rnd.uniform(-0.05, 0.05)
+        ang += rnd.uniform(-0.025, 0.025)
         verts.append((cx + rad * math.cos(ang), cy + rad * math.sin(ang)))
 
-    # Walk each edge as a quadratic curve whose control point is pulled back
-    # towards the middle, which is what gives the points their concave taper.
+    # Each edge curves in towards the middle, which is what tapers the points
+    # to needles instead of leaving them as straight-sided wedges.
     path = []
     for i in range(len(verts)):
         p0 = verts[i]
         p1 = verts[(i + 1) % len(verts)]
         mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
-        # Each edge bows by a different amount, and some of them bow the
-        # wrong way — an evenly tapered star is the thing that gives a
-        # generated shape away.
-        b = bow * rnd.uniform(0.35, 1.5)
+        b = bow * rnd.uniform(0.86, 1.14)
         ctrl = (mx + (cx - mx) * b, my + (cy - my) * b)
-        dx, dy = p1[0] - p0[0], p1[1] - p0[1]
-        ln = math.hypot(dx, dy) or 1
-        k = ln * rnd.uniform(-0.05, 0.05)
-        ctrl = (ctrl[0] - dy / ln * k, ctrl[1] + dx / ln * k)
-        for s in range(9):
-            t = s / 9
+        for s in range(11):
+            t = s / 11
             u = 1 - t
             path.append((u * u * p0[0] + 2 * u * t * ctrl[0] + t * t * p1[0],
                          u * u * p0[1] + 2 * u * t * ctrl[1] + t * t * p1[1]))
 
     layer = Image.new('RGBA', (n, n), (0, 0, 0, 0))
     ImageDraw.Draw(layer).polygon(path, fill=colour + (255,))
+
+    if streaks:
+        # Dry-marker gaps: thin, near-radial, and cut right through, so the
+        # photograph shows between them rather than a lighter pink sitting
+        # on top.
+        cut = Image.new('L', (n, n), 0)
+        dc = ImageDraw.Draw(cut)
+        for k in range(13):
+            ang = rnd.uniform(0, 2 * math.pi)
+            r0 = R * rnd.uniform(0.05, 0.40)
+            r1 = R * rnd.uniform(0.55, 1.0)
+            wob = rnd.uniform(-0.10, 0.10)
+            pts = []
+            for s in range(9):
+                t = s / 8
+                a = ang + wob * math.sin(t * math.pi)
+                r = r0 + (r1 - r0) * t
+                pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+            dc.line(pts, fill=255, width=int(n * rnd.uniform(0.004, 0.012)))
+        alpha = layer.split()[-1]
+        alpha = Image.composite(Image.new('L', (n, n), 0), alpha, cut)
+        layer.putalpha(alpha)
+
     return layer.resize((size, size), Image.LANCZOS)
 
 
-def build_star_snap(path, out, seed, width=560, crop=None, star_scale=0.78,
-                    star_dx=0.08, star_dy=-0.20, star_rot=9,
+def build_star_snap(path, out, seed, width=560, crop=None, star_scale=0.90,
+                    star_dx=0.04, star_dy=-0.16, star_rot=9,
                     star_colour=(244, 132, 178)):
     """A torn photograph with a drawn star set BEHIND the person — inside the
     frame, between her and the background, the way the reference has it. That
@@ -286,11 +301,11 @@ def build_star_snap(path, out, seed, width=560, crop=None, star_scale=0.78,
     star_size = int(min(flat.size) * star_scale)
     star = drawn_star(star_size, star_colour, seed=seed,
                       rot=math.radians(star_rot))
-    # Tilted, and set high and slightly right, so that all five points clear
-    # her outline. A star centred behind her cannot work at any size: its two
-    # lower points land on her chest, which is why only three of them used to
-    # show. Up here her head crosses one point instead of swallowing two, so
-    # the star still reads as being behind her.
+    # Set high and slightly right so seven of its eight points clear her
+    # outline. All eight is not possible: the points are 45 degrees apart, so
+    # one of them always aims down into her. This way her head crosses that
+    # one alone — enough for the star to read as being behind her, instead of
+    # the three-points-showing it used to be.
     sx = int(flat.width * (0.5 + star_dx)) - star_size // 2
     sy = int(flat.height * (0.5 + star_dy)) - star_size // 2
 

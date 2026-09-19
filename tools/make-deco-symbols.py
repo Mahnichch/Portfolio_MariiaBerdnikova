@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Generate the hand-drawn star and heart path data for assets/js/sprite.js.
+"""Generate the star and heart path data for assets/js/sprite.js.
 
-The old shapes were mathematically perfect polygons with a turbulence filter
-laid over the top, which still reads as "even" — the arms are all the same
-length and every edge is dead straight. These are built the way a hand draws
-them instead: uneven arms, angles that miss, edges that bow, and a pen that
-overshoots where the stroke closes.
+Drawn in the manner of the reference sheet: solid shapes with confident,
+smooth outlines and deeply concave sides, so each point tapers to a needle.
+They are NOT scratchy. An earlier version jittered every vertex and ran the
+result through a turbulence filter, which made the shapes wobble rather than
+look drawn — the irregularity here is slight and in the silhouette, and the
+filter is off for these symbols.
 
 Run it and paste the printed block into sprite.js. It is a one-off author
 tool, not a build step — the site ships the literal path data.
@@ -15,7 +16,6 @@ import random
 
 
 def fmt(v):
-    """Trim coordinates to one decimal; keeps the sprite readable and small."""
     s = '%.1f' % v
     return s.rstrip('0').rstrip('.') if '.' in s else s
 
@@ -24,88 +24,76 @@ def pt(p):
     return '%s %s' % (fmt(p[0]), fmt(p[1]))
 
 
-def bowed(a, b, bow, rnd):
-    """A quadratic control point for the chord a->b, pushed off to one side so
-    the edge bows the way a drawn line does rather than ruling straight."""
-    mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
-    dx, dy = b[0] - a[0], b[1] - a[1]
-    n = math.hypot(dx, dy) or 1
-    k = bow * n * rnd.uniform(0.55, 1.45)
-    return (mx - dy / n * k, my + dx / n * k)
-
-
-def star_path(cx=50, cy=50, r=47, points=5, inner=0.4, rot=-0.06,
-              seed=1, jitter=0.075, bow=0.05, overshoot=True):
+def star_path(cx=50, cy=50, r=48, points=5, inner=0.38, rot=0.0,
+              seed=1, jitter=0.03, bow=0.30):
+    """A star whose sides curve IN towards the middle. That concave taper is
+    what makes a drawn star read as drawn; a straight-sided one reads as
+    plotted however much its vertices are nudged about."""
     rnd = random.Random(seed)
-    pts = []
+    verts = []
     for i in range(points * 2):
         ang = rot + i * math.pi / points - math.pi / 2
         rad = r if i % 2 == 0 else r * inner
         rad *= 1 + rnd.uniform(-jitter, jitter)
-        ang += rnd.uniform(-jitter, jitter) * 0.55
-        pts.append((cx + rad * math.cos(ang), cy + rad * math.sin(ang)))
+        ang += rnd.uniform(-jitter, jitter) * 0.5
+        verts.append((cx + rad * math.cos(ang), cy + rad * math.sin(ang)))
 
-    d = ['M' + pt(pts[0])]
-    for i in range(1, len(pts) + 1):
-        a, b = pts[i - 1], pts[i % len(pts)]
-        d.append('Q%s %s' % (pt(bowed(a, b, bow, rnd)), pt(b)))
-    if overshoot:
-        # Carry the stroke a little past its own start, the way a pen does
-        # when it comes back round to where it began.
-        a, b = pts[0], pts[1]
-        t = 0.3
-        end = (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
-        d.append('Q%s %s' % (pt(bowed(a, end, bow, rnd)), pt(end)))
-    return ' '.join(d)
+    d = ['M' + pt(verts[0])]
+    for i in range(1, len(verts) + 1):
+        a, b = verts[i - 1], verts[i % len(verts)]
+        mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+        k = bow * rnd.uniform(0.82, 1.18)
+        ctrl = (mx + (cx - mx) * k, my + (cy - my) * k)
+        d.append('Q%s %s' % (pt(ctrl), pt(b)))
+    return ' '.join(d) + 'Z'
 
 
-def heart_path(seed=1, jitter=2.6, lean=1.0, overshoot=True):
-    """A heart with two lobes that do not match — which is the whole point.
-    The left one is drawn bigger and higher, as an unpractised hand does."""
+def heart_path(seed=1, jitter=1.4, lean=0.0):
+    """Lopsided by a little, smooth everywhere — a heart someone drew in one
+    confident pass, not one sketched over and over."""
     rnd = random.Random(seed)
 
     def j(p, amt=1.0):
         return (p[0] + rnd.uniform(-jitter, jitter) * amt,
                 p[1] + rnd.uniform(-jitter, jitter) * amt)
 
-    tip = j((50 + lean, 87), 0.5)
-    left = j((5, 29))
-    lobe_l = j((29, 4))
-    notch = j((50, 18), 0.6)
-    lobe_r = j((69, 7))
-    right = j((94, 32))
+    tip = j((50 + lean, 88), 0.4)
+    left = j((4, 30))
+    lobe_l = j((28, 3))
+    notch = j((50, 19), 0.5)
+    lobe_r = j((71, 4))
+    right = j((96, 31))
 
     seg = [
-        (tip, j((21, 67)), j((5, 48)), left),
-        (left, j((4, 13)), j((16, 3)), lobe_l),
-        (lobe_l, j((40, 4), 0.7), j((46, 11), 0.7), notch),
-        (notch, j((54, 10), 0.7), j((61, 4), 0.7), lobe_r),
-        (lobe_r, j((83, 4)), j((95, 15)), right),
-        (right, j((93, 49)), j((78, 67)), tip),
+        (j((22, 68)), j((5, 49)), left),
+        (j((3, 13)), j((15, 3)), lobe_l),
+        (j((39, 3), 0.6), j((46, 12), 0.6), notch),
+        (j((55, 11), 0.6), j((62, 3), 0.6), lobe_r),
+        (j((84, 3)), j((97, 14)), right),
+        (j((95, 50)), j((79, 68)), tip),
     ]
-    d = ['M' + pt(seg[0][0])]
-    for _, c1, c2, end in seg:
+    d = ['M' + pt(tip)]
+    for c1, c2, end in seg:
         d.append('C%s %s %s' % (pt(c1), pt(c2), pt(end)))
-    if overshoot:
-        d.append('C%s %s %s' % (pt(j((36, 76), 0.4)), pt(j((28, 70), 0.4)),
-                                pt(j((22, 63), 0.4))))
-    return ' '.join(d)
+    return ' '.join(d) + 'Z'
 
 
 if __name__ == '__main__':
-    print('--- star-5 (filled) ---')
-    print(star_path(seed=4, overshoot=False))
-    print('--- star-line ---')
-    print(star_path(seed=11, r=45))
-    print('--- star-line-b ---')
-    print(star_path(seed=23, r=45, inner=0.44, rot=0.12))
-    print('--- star-6 ---')
-    print(star_path(seed=7, points=6, inner=0.52, r=47, overshoot=False))
-    print('--- star-8 ---')
-    print(star_path(seed=9, points=8, inner=0.44, r=47, overshoot=False))
-    print('--- heart (filled) ---')
-    print(heart_path(seed=3, jitter=3.6, lean=-2.0, overshoot=False))
-    print('--- heart-line ---')
-    print(heart_path(seed=5))
-    print('--- heart-line-b ---')
-    print(heart_path(seed=17, lean=-1.5))
+    out = [
+        ('star-5',      star_path(seed=4, points=5, inner=0.42, bow=0.17)),
+        ('star-line',   star_path(seed=11, r=45, points=5, inner=0.42, bow=0.17)),
+        ('star-line-b', star_path(seed=23, r=45, points=5, inner=0.43,
+                                  rot=0.16, bow=0.16)),
+        ('star-6',      star_path(seed=7, points=6, inner=0.46, bow=0.30)),
+        ('star-8',      star_path(seed=9, points=8, inner=0.40, bow=0.34)),
+        # The four-point sparkle from the sheet: almost no body, all taper.
+        ('star-4',      star_path(seed=13, points=4, inner=0.20, bow=0.52)),
+        ('star-4-b',    star_path(seed=31, points=4, inner=0.17, rot=0.40,
+                                  bow=0.56)),
+        ('heart',       heart_path(seed=3, lean=-1.2)),
+        ('heart-line',  heart_path(seed=5)),
+        ('heart-line-b', heart_path(seed=17, lean=-1.8)),
+    ]
+    for name, d in out:
+        print('--- %s ---' % name)
+        print(d)
