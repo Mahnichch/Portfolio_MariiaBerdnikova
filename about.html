@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-accent="blue">
+<html lang="en" data-accent="pink">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,54 +29,45 @@
 
   <main id="main">
 
-    <p class="scrawl" style="margin:clamp(26px,4vw,52px) 0 2px" data-reveal>hello &mdash;</p>
-    <h1 class="display display--tilt display--bleed-l" data-reveal>ABOUT</h1>
-
     <!-- ===================================================================
-         A pinned-up collage rather than a column. Each piece is placed with
-         --x / --y / --w / --rot inline; nudge those to rearrange it. Under
-         860px they stop being positioned and stack.
+         A pinned-up collage, packed rather than spaced: pieces overlap and
+         two of them run off the edge of the page, which is what stops it
+         reading as boxes on a background. Each piece is placed with
+         --x / --y / --w / --rot inline; below 860px they stack.
          =================================================================== -->
     <div class="scrapbook">
 
-      <!-- The cut-out collage, built by tools/make-about-collage.py -->
+      <!-- The same photograph as the cut-out, enlarged until it goes soft
+           and flattened to two tones. Runs off the top and right edges. -->
+      <figure class="scrap panel" data-reveal
+              style="--x:50%; --y:-9%; --w:56%; --rot:0deg; --z:1">
+        <img src="assets/img/about-duotone.jpg" alt="" width="1100" height="1375">
+      </figure>
+
+      <div class="scrap" data-reveal style="--x:0%; --y:-2%; --w:56%; --rot:0deg; --z:6">
+        <p class="scrawl" style="margin:0 0 2px">hello &mdash;</p>
+        <h1 class="display display--tilt display--bleed-l" style="font-size:clamp(56px,11vw,160px)">ABOUT</h1>
+      </div>
+
+      <!-- Cut out of the same photograph, with a cream sticker edge. -->
       <figure class="scrap snap" data-reveal
-              style="--x:62%; --y:1%; --w:33%; --rot:1.5deg; --z:2">
-        <img src="assets/img/about-collage.png" alt="Mariia Berdnikova" width="760" height="1211">
+              style="--x:27%; --y:6%; --w:31%; --rot:0deg; --z:4">
+        <img src="assets/img/about-cutout.png" alt="Mariia Berdnikova" width="900" height="1878">
       </figure>
 
       <div class="scrap note" data-reveal
-           style="--x:2%; --y:5%; --w:34%; --rot:-1.2deg; --z:3">
-        <p class="lede">I produce things that put people in a room together. Concerts, festivals, a film, a platform &mdash; the format changes, the job doesn&rsquo;t: find the people worth hearing, then build the conditions where they actually get heard.</p>
+           style="--x:-1%; --y:29%; --w:30%; --rot:-1.6deg; --z:5">
+        <p>Creative producer working across music, media, film and event production. I find the people worth hearing, then build the conditions where they actually get heard.</p>
+        <ul class="label-row" style="margin-top:14px">
+          <li class="label label-box">Kazan, Tatarstan</li>
+        </ul>
       </div>
 
       <p class="scrap label tape-label" data-reveal
-         style="--x:40%; --y:24%; --w:auto; --rot:-3deg; --z:4; --label-rot:0deg">Kazan, Tatarstan</p>
-
-      <!-- TODO: replace with the Doge's Palace photo, black and white. -->
-      <figure class="scrap snap taped taped--one" data-reveal
-              style="--x:3%; --y:32%; --w:28%; --rot:-2.5deg; --z:2">
-        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-3.svg" alt="" width="340" height="260">
-        <figcaption class="label tape-label" style="--label-rot:-2deg">TODO &mdash; caption</figcaption>
-      </figure>
+         style="--x:62%; --y:44%; --w:auto; --rot:-2deg; --z:6; --label-rot:0deg">Things that keep me going</p>
 
       <div class="scrap note note--b" data-reveal
-           style="--x:36%; --y:38%; --w:31%; --rot:1deg; --z:3">
-        <h2 class="note__head">what I actually do</h2>
-        <p>Most of my work happens in Kazan and across the regions around it. Regional and indigenous music scenes here usually get described from the outside and in the past tense. I&rsquo;m interested in them as they are &mdash; changing, arguing with themselves, alive.</p>
-        <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the unglamorous scaffolding that decides whether anything reaches an audience at all.</p>
-      </div>
-
-      <!-- TODO: replace with the Milan gallery photo. -->
-      <figure class="scrap snap taped" data-reveal
-              style="--x:70%; --y:55%; --w:27%; --rot:2.5deg; --z:2">
-        <img class="cutout" src="assets/img/placeholder/slot-5.svg" alt="" width="340" height="260">
-        <figcaption class="label tape-label" style="--label-rot:2deg">TODO &mdash; caption</figcaption>
-      </figure>
-
-      <div class="scrap note" data-reveal
-           style="--x:3%; --y:64%; --w:29%; --rot:1.6deg; --z:3">
-        <h2 class="note__head">things that keep me going</h2>
+           style="--x:63%; --y:51%; --w:33%; --rot:1.2deg; --z:5">
         <!-- TODO: these are yours to rewrite — put your own in. -->
         <ul class="note__list">
           <li>a room that goes quiet at the right moment</li>
@@ -86,16 +77,31 @@
         </ul>
       </div>
 
-      <!-- TODO: replace with the fountain photo, cut out. -->
+      <!-- TODO: replace with a real photo (the Milan one). -->
       <figure class="scrap snap taped taped--one" data-reveal
-              style="--x:36%; --y:70%; --w:25%; --rot:-3deg; --z:2">
-        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-7.svg" alt="" width="340" height="260">
-        <figcaption class="label tape-label" style="--label-rot:-3deg">TODO &mdash; caption</figcaption>
+              style="--x:-1%; --y:47%; --w:25%; --rot:-3.5deg; --z:3">
+        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-3.svg" alt="" width="340" height="260">
+        <figcaption class="label tape-label" style="--label-rot:-2deg">TODO</figcaption>
       </figure>
 
-      <div class="scrap note note--b" data-reveal
-           style="--x:66%; --y:83%; --w:29%; --rot:-1.4deg; --z:3">
-        <h2 class="note__head">languages</h2>
+      <!-- TODO: replace with a real photo (the fountain one). -->
+      <figure class="scrap snap taped taped--one" data-reveal
+              style="--x:10%; --y:62%; --w:24%; --rot:2.5deg; --z:4">
+        <img class="cutout" src="assets/img/placeholder/slot-5.svg" alt="" width="340" height="260">
+        <figcaption class="label tape-label" style="--label-rot:2deg">TODO</figcaption>
+      </figure>
+
+      <div class="scrap" data-reveal style="--x:37%; --y:68%; --w:39%; --rot:0deg; --z:5">
+        <h2 class="marker-head">About me</h2>
+        <svg class="deco deco--underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#underline"/></svg>
+        <div class="body-col" style="max-width:none; margin-top:12px">
+          <p>Most of my work happens in Kazan and the regions around it. Regional and indigenous music scenes here get described from the outside, in the past tense. I&rsquo;m interested in them as they are &mdash; changing, arguing with themselves, alive.</p>
+          <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the scaffolding that decides whether anything reaches an audience at all.</p>
+        </div>
+      </div>
+
+      <div class="scrap note" data-reveal
+           style="--x:79%; --y:80%; --w:21%; --rot:-1.5deg; --z:5">
         <ul class="note__list">
           <li>Russian &mdash; native</li>
           <li>English &mdash; C1</li>
@@ -103,17 +109,12 @@
         </ul>
       </div>
 
-      <svg class="deco deco--float" data-parallax="0.05" aria-hidden="true" focusable="false"
-           style="--x:30%; --y:33%; --w:54px; --rot:-14deg"><use href="#star-6"/></svg>
+      <svg class="deco deco--float deco--ink" data-parallax="0.04" aria-hidden="true" focusable="false"
+           style="--x:22%; --y:22%; --w:52px; --rot:-12deg"><use href="#star-6"/></svg>
       <svg class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
-           style="--x:94%; --y:34%; --w:74px; --rot:8deg"><use href="#spiral"/></svg>
-      <svg class="deco deco--float" data-parallax="0.07" aria-hidden="true" focusable="false"
-           style="--x:57%; --y:96%; --w:46px; --rot:12deg"><use href="#star-8"/></svg>
-    </div>
-
-    <div class="pull-quote pull-quote--right" data-reveal>
-      <p>A culture is an organism, not an exhibit.</p>
-      <svg class="deco deco--underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#underline"/></svg>
+           style="--x:31%; --y:58%; --w:60px; --rot:9deg"><use href="#spiral"/></svg>
+      <svg class="deco deco--float" data-parallax="0.06" aria-hidden="true" focusable="false"
+           style="--x:95%; --y:36%; --w:44px; --rot:14deg"><use href="#star-8"/></svg>
     </div>
 
   </main>
