@@ -132,6 +132,30 @@ This is a one-off tool, not a build step — the site itself still has none.
 Star positions, sizes and colours are plain numbers near the bottom of the
 script.
 
+## The About page
+
+About is a pinned-up collage rather than a column: notes with torn edges,
+taped photographs at varied sizes and angles, and the cut-out collage as its
+anchor. Every piece is a `.scrap` placed with `--x`, `--y`, `--w` and
+`--rot` inline, the same system the project collages use, so rearranging it
+means editing those four numbers. Below 860px they stop being positioned and
+stack.
+
+It borrows the *arrangement* of a scrapbook but not its finish — the ground
+stays flat cream, and there is no aged paper, sepia or grain anywhere.
+
+Two details worth knowing before you edit it:
+
+- **Notes are `#fffdf7`, slightly lighter than the page.** They have to be:
+  cream on cream makes the torn edge invisible and the note reads as a plain
+  block of text.
+- **The tear is a `clip-path` polygon**, not an image. There are two of them
+  (`.note` and `.note--b`) so notes side by side do not repeat the same
+  edge.
+
+The photo slots are marked `TODO` in `about.html`. Drop real images in and
+delete the comment.
+
 ## Preview locally
 
 The pages load a shared SVG sprite and use relative paths, so run a tiny

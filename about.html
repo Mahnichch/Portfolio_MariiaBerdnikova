@@ -29,55 +29,93 @@
 
   <main id="main">
 
-    <div class="hero hero--tall">
-      <!-- Collage built from the Venice photo: cut out, turned black and
-           white, given a sticker outline and set on a torn patch of flat
-           blue with hand-drawn stars. It is a PNG because the patch is not
-           a rectangle — the transparent surround is what lets it sit flat
-           on the cream like the site's other cut-outs. Regenerate it from a
-           new photo with the script noted in the README. -->
-      <div class="hero__photo hero__photo--collage" data-reveal>
-        <img class="cutout" src="assets/img/about-collage.png" alt="Mariia Berdnikova" width="760" height="1211">
+    <p class="scrawl" style="margin:clamp(26px,4vw,52px) 0 2px" data-reveal>hello &mdash;</p>
+    <h1 class="display display--tilt display--bleed-l" data-reveal>ABOUT</h1>
+
+    <!-- ===================================================================
+         A pinned-up collage rather than a column. Each piece is placed with
+         --x / --y / --w / --rot inline; nudge those to rearrange it. Under
+         860px they stop being positioned and stack.
+         =================================================================== -->
+    <div class="scrapbook">
+
+      <!-- The cut-out collage, built by tools/make-about-collage.py -->
+      <figure class="scrap snap" data-reveal
+              style="--x:62%; --y:1%; --w:33%; --rot:1.5deg; --z:2">
+        <img src="assets/img/about-collage.png" alt="Mariia Berdnikova" width="760" height="1211">
+      </figure>
+
+      <div class="scrap note" data-reveal
+           style="--x:2%; --y:5%; --w:34%; --rot:-1.2deg; --z:3">
+        <p class="lede">I produce things that put people in a room together. Concerts, festivals, a film, a platform &mdash; the format changes, the job doesn&rsquo;t: find the people worth hearing, then build the conditions where they actually get heard.</p>
       </div>
 
-      <div class="hero__title">
-        <h1 class="display display--tilt display--bleed-l" data-reveal>ABOUT</h1>
+      <p class="scrap label tape-label" data-reveal
+         style="--x:40%; --y:24%; --w:auto; --rot:-3deg; --z:4; --label-rot:0deg">Kazan, Tatarstan</p>
+
+      <!-- TODO: replace with the Doge's Palace photo, black and white. -->
+      <figure class="scrap snap taped taped--one" data-reveal
+              style="--x:3%; --y:32%; --w:28%; --rot:-2.5deg; --z:2">
+        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-3.svg" alt="" width="340" height="260">
+        <figcaption class="label tape-label" style="--label-rot:-2deg">TODO &mdash; caption</figcaption>
+      </figure>
+
+      <div class="scrap note note--b" data-reveal
+           style="--x:36%; --y:38%; --w:31%; --rot:1deg; --z:3">
+        <h2 class="note__head">what I actually do</h2>
+        <p>Most of my work happens in Kazan and across the regions around it. Regional and indigenous music scenes here usually get described from the outside and in the past tense. I&rsquo;m interested in them as they are &mdash; changing, arguing with themselves, alive.</p>
+        <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the unglamorous scaffolding that decides whether anything reaches an audience at all.</p>
       </div>
 
-      <ul class="label-row hero__meta" data-reveal>
-        <li class="label label-box">Creative producer</li>
-        <li class="label label-box">Music / media / film</li>
-        <li class="label label-box">Kazan, Tatarstan</li>
-      </ul>
+      <!-- TODO: replace with the Milan gallery photo. -->
+      <figure class="scrap snap taped" data-reveal
+              style="--x:70%; --y:55%; --w:27%; --rot:2.5deg; --z:2">
+        <img class="cutout" src="assets/img/placeholder/slot-5.svg" alt="" width="340" height="260">
+        <figcaption class="label tape-label" style="--label-rot:2deg">TODO &mdash; caption</figcaption>
+      </figure>
+
+      <div class="scrap note" data-reveal
+           style="--x:3%; --y:64%; --w:29%; --rot:1.6deg; --z:3">
+        <h2 class="note__head">things that keep me going</h2>
+        <!-- TODO: these are yours to rewrite — put your own in. -->
+        <ul class="note__list">
+          <li>a room that goes quiet at the right moment</li>
+          <li>soundcheck, before anyone arrives</li>
+          <li>an artist nobody has written about yet</li>
+          <li>iced coffee, honestly</li>
+        </ul>
+      </div>
+
+      <!-- TODO: replace with the fountain photo, cut out. -->
+      <figure class="scrap snap taped taped--one" data-reveal
+              style="--x:36%; --y:70%; --w:25%; --rot:-3deg; --z:2">
+        <img class="cutout cutout--bw" src="assets/img/placeholder/slot-7.svg" alt="" width="340" height="260">
+        <figcaption class="label tape-label" style="--label-rot:-3deg">TODO &mdash; caption</figcaption>
+      </figure>
+
+      <div class="scrap note note--b" data-reveal
+           style="--x:66%; --y:83%; --w:29%; --rot:-1.4deg; --z:3">
+        <h2 class="note__head">languages</h2>
+        <ul class="note__list">
+          <li>Russian &mdash; native</li>
+          <li>English &mdash; C1</li>
+          <li>Spanish &mdash; A2</li>
+        </ul>
+      </div>
 
       <svg class="deco deco--float" data-parallax="0.05" aria-hidden="true" focusable="false"
-           style="--x:47%; --y:8%; --w:58px; --rot:-14deg"><use href="#star-6"/></svg>
+           style="--x:30%; --y:33%; --w:54px; --rot:-14deg"><use href="#star-6"/></svg>
+      <svg class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
+           style="--x:94%; --y:34%; --w:74px; --rot:8deg"><use href="#spiral"/></svg>
+      <svg class="deco deco--float" data-parallax="0.07" aria-hidden="true" focusable="false"
+           style="--x:57%; --y:96%; --w:46px; --rot:12deg"><use href="#star-8"/></svg>
     </div>
 
-    <div class="prose body-col" data-reveal>
-      <p class="lede">I produce things that put people in a room together. Concerts, festivals, a film, a platform — the format changes, the job doesn't: find the people worth hearing, then build the conditions where they actually get heard.</p>
-
-      <p>Most of my work happens in Kazan and across the regions around it. Regional and indigenous music scenes here usually get described from the outside and in the past tense. I'm interested in them as they are — changing, arguing with themselves, alive.</p>
-
-      <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the unglamorous scaffolding that decides whether anything reaches an audience at all.</p>
-    </div>
-
-    <div class="pull-quote" data-reveal>
+    <div class="pull-quote pull-quote--right" data-reveal>
       <p>A culture is an organism, not an exhibit.</p>
       <svg class="deco deco--underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#underline"/></svg>
     </div>
 
-    <div class="prose prose--right" data-reveal>
-      <ul class="label-row" style="flex-direction:column; align-items:flex-start">
-        <li class="label label-box">Russian — native</li>
-        <li class="label label-box">English — C1</li>
-        <li class="label label-box">Spanish — A2</li>
-        <li class="label label-box">Based in Kazan, Tatarstan</li>
-      </ul>
-    </div>
-
-    <svg class="deco deco--float deco--ink" data-parallax="0.04" aria-hidden="true" focusable="false"
-         style="--x:8%; --y:64%; --w:90px; --rot:6deg"><use href="#scribble"/></svg>
   </main>
 
   <footer class="site-foot">

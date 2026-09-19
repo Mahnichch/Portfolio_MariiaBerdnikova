@@ -853,3 +853,112 @@ button:focus-visible,
   /* The project list follows the film directly, so no cue is needed. */
   .hero-scroll { display: none; }
 }
+
+/* =========================================================================
+   14. SCRAPBOOK (about.html)
+
+   A pinned-up collage rather than a column: notes with torn edges, taped
+   photographs at varied sizes and angles, and the cut-out collage as the
+   anchor. Items are placed with --x / --y / --w / --rot inline, the same way
+   the project collages are, and they stack into a single column on mobile.
+
+   It borrows the *arrangement* of a scrapbook but not its finish: the ground
+   stays flat cream, there is no aged paper, no sepia and no grain.
+   ========================================================================= */
+
+.scrapbook {
+  position: relative;
+  min-height: clamp(780px, 96vw, 1280px);
+  margin: clamp(24px, 4vw, 48px) 0 0;
+}
+
+.scrap {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w, 26%);
+  transform: rotate(var(--rot, 0deg));
+  z-index: var(--z, 1);
+}
+
+/* --- notes: a block of cream with torn top and bottom edges ------------- */
+
+/* Lighter than the page, or the torn edge is invisible — cream on cream
+   reads as a plain block of text and the tear does nothing. */
+.note {
+  background: #fffdf7;
+  padding: clamp(18px, 2vw, 30px) clamp(16px, 1.8vw, 26px);
+  clip-path: polygon(0.0% 0.43%, 3.8% 0.98%, 7.7% 0.67%, 11.5% 1.09%, 15.4% 1.13%, 19.2% 0.12%, 23.1% 0.02%, 26.9% 1.51%, 30.8% 0.47%, 34.6% 0.42%, 38.5% 1.79%, 42.3% 0.85%, 46.2% 1.51%, 50.0% 0.86%, 53.8% 1.15%, 57.7% 0.27%, 61.5% 1.14%, 65.4% 1.56%, 69.2% 0.94%, 73.1% 1.33%, 76.9% 1.21%, 80.8% 0.12%, 84.6% 1.36%, 88.5% 1.06%, 92.3% 0.54%, 96.2% 0.06%, 100.0% 1.56%, 100.0% 99.15%, 96.2% 98.71%, 92.3% 98.42%, 88.5% 98.71%, 84.6% 98.34%, 80.8% 99.29%, 76.9% 98.56%, 73.1% 99.2%, 69.2% 98.32%, 65.4% 98.42%, 61.5% 99.82%, 57.7% 99.76%, 53.8% 99.61%, 50.0% 98.26%, 46.2% 99.21%, 42.3% 98.87%, 38.5% 99.46%, 34.6% 99.09%, 30.8% 99.31%, 26.9% 99.37%, 23.1% 98.95%, 19.2% 98.95%, 15.4% 98.37%, 11.5% 98.77%, 7.7% 98.33%, 3.8% 98.46%, 0.0% 98.22%);
+}
+/* A second tear, so two notes side by side do not repeat the same edge. */
+.note--b {
+  clip-path: polygon(0.0% 0.58%, 3.8% 0.27%, 7.7% 1.17%, 11.5% 0.13%, 15.4% 0.96%, 19.2% 0.66%, 23.1% 0.1%, 26.9% 0.91%, 30.8% 0.07%, 34.6% 0.78%, 38.5% 0.13%, 42.3% 0.16%, 46.2% 0.76%, 50.0% 1.49%, 53.8% 0.22%, 57.7% 0.4%, 61.5% 1.13%, 65.4% 1.71%, 69.2% 1.04%, 73.1% 0.71%, 76.9% 1.76%, 80.8% 0.08%, 84.6% 1.55%, 88.5% 0.52%, 92.3% 0.26%, 96.2% 0.21%, 100.0% 0.56%, 100.0% 98.53%, 96.2% 99.67%, 92.3% 98.95%, 88.5% 98.85%, 84.6% 99.33%, 80.8% 99.01%, 76.9% 99.89%, 73.1% 99.89%, 69.2% 99.63%, 65.4% 98.78%, 61.5% 99.23%, 57.7% 99.43%, 53.8% 98.95%, 50.0% 99.18%, 46.2% 99.46%, 42.3% 98.57%, 38.5% 98.74%, 34.6% 99.56%, 30.8% 98.97%, 26.9% 99.05%, 23.1% 98.42%, 19.2% 98.69%, 15.4% 99.48%, 11.5% 98.24%, 7.7% 99.79%, 3.8% 99.25%, 0.0% 98.64%);
+}
+
+.note p { margin: 0 0 0.9em; font-size: clamp(14px, 1.05vw, 16px); }
+.note p:last-child { margin-bottom: 0; }
+
+.note__head {
+  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
+  font-variation-settings: 'BNCE' -30, 'INFM' 60;
+  font-weight: 700;
+  font-size: clamp(20px, 1.9vw, 30px);
+  line-height: 1.05;
+  margin: 0 0 0.5em;
+}
+
+.note__list { list-style: none; margin: 0; padding: 0; }
+.note__list li {
+  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
+  font-size: clamp(15px, 1.25vw, 20px);
+  padding: 0.28em 0;
+  border-bottom: 1px solid var(--ink);
+}
+.note__list li:last-child { border-bottom: 0; }
+
+/* --- photographs, held on with a strip of tape ------------------------- */
+
+.snap { margin: 0; position: relative; }
+.snap img { display: block; width: 100%; }
+.snap figcaption { margin-top: 9px; }
+
+/* The tape: a plain translucent strip, no texture, sitting over a corner. */
+.taped::before,
+.taped::after {
+  content: '';
+  position: absolute;
+  width: 78px;
+  height: 22px;
+  background: rgba(20, 18, 16, 0.13);
+  z-index: 3;
+}
+.taped::before { left: -16px; top: -11px; transform: rotate(-28deg); }
+.taped::after  { right: -16px; bottom: 26px; transform: rotate(-24deg); }
+.taped--one::after { display: none; }
+
+/* A caption written on a strip of tape rather than in a box. */
+.tape-label {
+  display: inline-block;
+  background: var(--cream);
+  border: 1px solid var(--ink);
+  padding: 7px 14px 6px;
+  transform: rotate(var(--label-rot, -2deg));
+}
+
+@media (max-width: 860px) {
+  .scrapbook {
+    min-height: 0;
+    display: grid;
+    gap: clamp(30px, 8vw, 52px);
+    justify-items: start;
+  }
+  .scrap {
+    position: static;
+    width: min(90%, 460px);
+    transform: rotate(var(--rot, 0deg));
+  }
+  .scrap:nth-child(even) { justify-self: end; }
+  /* Tape hangs off the edge of the screen once things are full width. */
+  .taped::before { left: 8px; }
+  .taped::after { right: 8px; }
+}
