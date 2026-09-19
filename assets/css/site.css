@@ -866,10 +866,15 @@ button:focus-visible,
    stays flat cream, there is no aged paper, no sepia and no grain.
    ========================================================================= */
 
+/* Held to a column and centred, the way the reference is a poster rather
+   than a full-bleed page. */
 .scrapbook {
   position: relative;
+  max-width: 1180px;
   min-height: clamp(1000px, 115vw, 1650px);
-  margin: clamp(24px, 4vw, 48px) 0 0;
+  /* auto on the inline axis, or the stage sits left instead of centred —
+     and this must come after any margin shorthand, not before it. */
+  margin: clamp(24px, 4vw, 48px) auto 0;
 }
 
 /* --- notes: a block of cream with torn top and bottom edges ------------- */
@@ -955,6 +960,13 @@ button:focus-visible,
   width: var(--w, 26%);
   transform: rotate(var(--rot, 0deg));
   z-index: var(--z, 1);
+}
+
+/* Small blank scraps of torn paper, scattered under and between the other
+   pieces. They reuse .note's tear, so they need no content — just a height. */
+.paper-bit {
+  padding: 0;
+  height: var(--h, 46px);
 }
 
 /* A caption written on a strip of tape rather than in a box. */

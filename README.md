@@ -122,14 +122,21 @@ python3 tools/make-about-photos.py path/to/photos
 
 Which photo plays which part is the `PHOTOS` dict at the top of that script:
 
-- **figure** — cut out with a segmentation model and given a cream sticker
-  edge. Give it a **full-length** shot: one cropped mid-body ends on a
-  straight cut across fabric.
+- **figure** — cut out and given a cream sticker edge. Give it a
+  **full-length** shot: one cropped mid-body ends on a straight cut across
+  fabric. If the background was erased by hand and saved as a JPEG (so the
+  transparency arrived as flat black), leave `FIGURE_IS_KEYED = True` and
+  the black is removed by filling the figure's enclosed holes — a plain
+  brightness threshold punches straight through dark shoes.
 - **duotone** — a different shot, blown up until it goes soft and flattened
   to two tones. It runs off the top and right of the page, so only its left
   and bottom edges are torn.
-- **snap1 / snap2** — torn photographs. `crop` in each `build_snap` call
-  frames them.
+- **snap1 / snap2** — torn photographs; `crop` in each `build_snap` call
+  frames them, and `bw=True` drops them to black and white. The page sets a
+  pink star behind snap1.
+
+Small blank scraps of torn paper are scattered between the pieces:
+`<div class="scrap note paper-bit">` with a `--h`, reusing the note's tear.
 
 The tear itself is `torn_edge()`: sine waves of falling amplitude around
 each side, so the low frequencies drift and the high ones roughen. A thin

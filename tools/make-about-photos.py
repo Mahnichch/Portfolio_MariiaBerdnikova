@@ -31,11 +31,15 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 # Which photograph plays which part. The figure wants a full-length shot —
 # one cropped mid-body ends on a straight cut across fabric.
 PHOTOS = {
-    'figure':  'photos/4.jpg',
-    'duotone': 'photos/1.jpg',
-    'snap1':   'photos/5.jpg',
-    'snap2':   'photos/6.jpg',
+    'figure':  '7.jpg',     # already cut out by hand, exported on black
+    'duotone': '1.jpg',
+    'snap1':   '10.jpg',
+    'snap2':   '6.jpg',
 }
+
+# Set for a photograph whose background was erased by hand and exported as a
+# JPEG, so the transparency arrived as flat black.
+FIGURE_IS_KEYED = True
 
 PAPER = (247, 242, 233)     # cream, same as the page
 DUO_DARK = (176, 74, 122)
@@ -105,15 +109,47 @@ def fit(path, width):
     return im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
 
 
-def build_figure(path, out, width=760, scale=2):
+def key_black(path, cutoff=16):
+    """Drop a flat black background that came from a hand-made cut-out saved
+    as JPEG.
+
+    A plain brightness threshold will not do: parts of her trainers are pure
+    black too, so thresholding punches holes straight through them. Instead
+    the non-black pixels are taken as the figure and its *enclosed* holes are
+    filled back in, which recovers the dark shoe without bringing back the
+    background — only black connected to the outside is dropped.
+
+    (Not ImageDraw.floodfill: it still exists in Pillow 12 but does nothing,
+    filling zero pixels and silently leaving the background opaque.)"""
+    from scipy import ndimage
+
+    im = Image.open(path).convert('RGB')
+    arr = np.asarray(im).max(axis=2)
+
+    figure = ndimage.binary_fill_holes(arr > cutoff)
+    alpha = np.where(figure, 255, 0).astype(np.uint8)
+    alpha = Image.fromarray(alpha, 'L')
+    # Pull the edge in a touch to lose the dark JPEG fringe, then soften it.
+    alpha = alpha.filter(ImageFilter.MinFilter(5))
+    alpha = alpha.filter(ImageFilter.GaussianBlur(1.2))
+
+    out = im.convert('RGBA')
+    out.putalpha(alpha)
+    return out.crop(out.split()[-1].getbbox())
+
+
+def build_figure(path, out, width=760, scale=2, keyed=False):
     """Cut the person out and give them a cream sticker edge."""
-    cache = 'cut-' + os.path.basename(path) + '.png'
-    if not os.path.exists(cache):
-        from rembg import new_session, remove
-        remove(Image.open(path).convert('RGB'),
-               session=new_session('u2net_human_seg'),
-               post_process_mask=True).save(cache)
-    cut = Image.open(cache).convert('RGBA')
+    if keyed:
+        cut = key_black(path)
+    else:
+        cache = 'cut-' + os.path.basename(path) + '.png'
+        if not os.path.exists(cache):
+            from rembg import new_session, remove
+            remove(Image.open(path).convert('RGB'),
+                   session=new_session('u2net_human_seg'),
+                   post_process_mask=True).save(cache)
+        cut = Image.open(cache).convert('RGBA')
     cut = cut.crop(cut.split()[-1].getbbox())
 
     w = width * scale
@@ -191,9 +227,11 @@ if __name__ == '__main__':
     base = sys.argv[1] if len(sys.argv) > 1 else '.'
     p = {k: os.path.join(base, os.path.basename(v)) for k, v in PHOTOS.items()}
 
-    build_figure(p['figure'], 'assets/img/about-figure.png')
+    build_figure(p['figure'], 'assets/img/about-figure.png',
+                 keyed=FIGURE_IS_KEYED)
     build_duotone(p['duotone'], 'assets/img/about-duotone.png')
-    build_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7,
-               crop=(0.20, 0.40, 0.82, 1.0))
+    # Black and white; the page sets a pink star behind it.
+    build_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7, bw=True,
+               crop=(0.12, 0.16, 0.95, 0.92))
     build_snap(p['snap2'], 'assets/img/about-snap-2.png', seed=23, bw=True,
                crop=(0.12, 0.46, 0.88, 1.0))

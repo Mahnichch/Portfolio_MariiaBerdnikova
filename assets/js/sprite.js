@@ -113,6 +113,13 @@
     '           12 0 23 9 23 24 0 17-15 34-43 55z"/>',
     '</symbol>',
 
+    /* --- filled 5-point star, for sitting behind a photograph ------------ */
+    '<symbol id="star-5" viewBox="0 0 100 100">',
+    '  <path fill="currentColor" filter="url(#rough)"',
+    '        d="M50 2 62.7 32.5 95.7 35.2 70.5 56.7 78.2 88.8 50 71.6 21.8 88.8',
+    '           29.5 56.7 4.3 35.2 37.3 32.5Z"/>',
+    '</symbol>',
+
     /* --- outlined 5-point star ------------------------------------------- */
     '<symbol id="star-line" viewBox="0 0 100 100">',
     '  <path fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"',

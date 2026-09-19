@@ -20,7 +20,7 @@
 <div class="page">
 
   <header class="page-head">
-    <p class="label" data-reveal><a class="back-link scribble" href="index.html"><svg class="deco" aria-hidden="true" focusable="false"><use href="#arrow"/></svg>Back</a></p>
+    <p class="label" data-reveal><a class="back-link scribble" href="index.html"><svg viewBox="0 0 100 40" class="deco" aria-hidden="true" focusable="false"><use href="#arrow"/></svg>Back</a></p>
     <nav class="site-nav" aria-label="Primary" data-reveal>
       <a class="label label-box" href="art.html">Art</a>
       <a class="label label-box" href="contact.html">Contact</a>
@@ -30,63 +30,85 @@
   <main id="main">
 
     <!-- ===================================================================
-         Every photograph here is torn rather than cropped square, and they
-         come from four different shots. Pieces overlap and two run off the
-         edge of the page. Each is placed with --x / --y / --w / --rot
-         inline; below 860px they stack.
+         Held to a centred column, like a poster. Every photograph is torn
+         rather than cropped square and they come from four different shots.
+         Each piece is placed with --x / --y / --w / --rot inline; below
+         860px they stack.
          =================================================================== -->
     <div class="scrapbook">
 
-      <!-- One shot, blown up and flattened to two tones. Off the top/right. -->
+      <!-- One shot, blown up and flattened to two tones. Runs off the top. -->
       <figure class="scrap panel" data-reveal
-              style="--x:55%; --y:-7%; --w:48%; --rot:0deg; --z:1">
+              style="--x:48%; --y:-8%; --w:52%; --rot:0deg; --z:1">
         <img src="assets/img/about-duotone.png" alt="" width="900" height="1180">
       </figure>
 
-      <div class="scrap" data-reveal style="--x:0%; --y:2%; --w:52%; --rot:0deg; --z:6">
-        <p class="scrawl" style="font-size:clamp(17px,2.2vw,34px); margin:0 0 4px">hey! i&rsquo;m</p>
-        <h1 class="display" style="font-size:clamp(54px,9.4vw,140px); line-height:0.9">masha</h1>
+      <div class="scrap" data-reveal style="--x:0%; --y:2%; --w:50%; --rot:0deg; --z:6">
+        <p class="scrawl" style="font-size:clamp(17px,2.1vw,32px); margin:0 0 4px">hey! i&rsquo;m</p>
+        <h1 class="display" style="font-size:clamp(52px,8.6vw,124px); line-height:0.9">masha</h1>
       </div>
 
-      <svg class="deco deco--float deco--ink" aria-hidden="true" focusable="false"
-           style="--x:31%; --y:1%; --w:52px; --rot:12deg"><use href="#heart-line"/></svg>
+      <svg viewBox="0 0 100 92" class="deco deco--float deco--ink" aria-hidden="true" focusable="false"
+           style="--x:28%; --y:1%; --w:48px; --rot:12deg"><use href="#heart-line"/></svg>
 
-      <!-- A different shot: full length, cut out, cream sticker edge. -->
+      <!-- Cut out by hand; the page sets her partly over the pink. -->
       <figure class="scrap snap" data-reveal
-              style="--x:30%; --y:13%; --w:24%; --rot:0deg; --z:4">
+              style="--x:33%; --y:11%; --w:27%; --rot:0deg; --z:4">
         <img src="assets/img/about-figure.png" alt="Mariia Berdnikova" width="760" height="2260">
       </figure>
 
+      <div class="scrap note paper-bit" data-reveal
+           style="--x:2%; --y:21%; --w:15%; --h:38px; --rot:-4deg; --z:4"></div>
+
       <div class="scrap note" data-reveal
-           style="--x:0%; --y:23%; --w:27%; --rot:-1.6deg; --z:5">
+           style="--x:0%; --y:26%; --w:31%; --rot:-1.6deg; --z:5">
         <p>Creative producer working across music, media, film and event production. I find the people worth hearing, then build the conditions where they actually get heard.</p>
         <ul class="label-row" style="margin-top:14px">
           <li class="label label-box">Kazan, Tatarstan</li>
         </ul>
       </div>
 
+      <!-- A star sits behind this one, as in the reference. -->
+      <svg viewBox="0 0 100 100" class="deco deco--float" aria-hidden="true" focusable="false"
+           style="--x:52.5%; --y:51%; --w:40%; --rot:-8deg; z-index:2"><use href="#star-5"/></svg>
+
       <figure class="scrap snap" data-reveal
-              style="--x:61%; --y:54%; --w:21%; --rot:2.5deg; --z:3">
-        <img src="assets/img/about-snap-1.png" alt="" width="560" height="723">
-        <figcaption class="label tape-label" style="--label-rot:2deg">Milan</figcaption>
+              style="--x:61%; --y:55%; --w:23%; --rot:2deg; --z:3">
+        <img src="assets/img/about-snap-1.png" alt="" width="560" height="684">
       </figure>
 
-      <svg class="deco deco--float" aria-hidden="true" focusable="false"
-           style="--x:92%; --y:46%; --w:46px; --rot:-10deg"><use href="#heart"/></svg>
-      <svg class="deco deco--float deco--ink" aria-hidden="true" focusable="false"
-           style="--x:56%; --y:40%; --w:42px; --rot:8deg"><use href="#star-line"/></svg>
+      <div class="scrap note paper-bit note--b" data-reveal
+           style="--x:88%; --y:44%; --w:11%; --h:34px; --rot:6deg; --z:4"></div>
 
       <figure class="scrap snap" data-reveal
-              style="--x:2%; --y:52%; --w:23%; --rot:-3deg; --z:3">
+              style="--x:3%; --y:55%; --w:25%; --rot:-3deg; --z:3">
         <img src="assets/img/about-snap-2.png" alt="" width="560" height="532">
         <figcaption class="label tape-label" style="--label-rot:-2deg">Off duty</figcaption>
       </figure>
 
+      <div class="scrap note" data-reveal
+           style="--x:4%; --y:79%; --w:21%; --rot:1.4deg; --z:5">
+        <ul class="note__list">
+          <li>Russian &mdash; native</li>
+          <li>English &mdash; C1</li>
+          <li>Spanish &mdash; A2</li>
+        </ul>
+      </div>
+
+      <div class="scrap" data-reveal style="--x:28%; --y:76%; --w:31%; --rot:0deg; --z:5">
+        <h2 class="marker-head">About me</h2>
+        <svg class="deco deco--underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#underline"/></svg>
+        <div class="body-col" style="max-width:none; margin-top:12px">
+          <p>Most of my work happens in Kazan and the regions around it. Regional and indigenous music scenes here get described from the outside, in the past tense. I&rsquo;m interested in them as they are &mdash; changing, arguing with themselves, alive.</p>
+          <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the scaffolding that decides whether anything reaches an audience at all.</p>
+        </div>
+      </div>
+
       <p class="scrap label tape-label" data-reveal
-         style="--x:59%; --y:81%; --w:auto; --rot:-2deg; --z:6; --label-rot:0deg">Things that keep me going</p>
+         style="--x:61%; --y:80%; --w:auto; --rot:-2deg; --z:6; --label-rot:0deg">Things that keep me going</p>
 
       <div class="scrap note note--b" data-reveal
-           style="--x:60%; --y:83%; --w:31%; --rot:1.2deg; --z:5">
+           style="--x:62%; --y:84%; --w:32%; --rot:1.2deg; --z:5">
         <!-- TODO: these are yours to rewrite — put your own in. -->
         <ul class="note__list">
           <li>a room that goes quiet at the right moment</li>
@@ -96,30 +118,17 @@
         </ul>
       </div>
 
-      <div class="scrap" data-reveal style="--x:27%; --y:74%; --w:31%; --rot:0deg; --z:5">
-        <h2 class="marker-head">About me</h2>
-        <svg class="deco deco--underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#underline"/></svg>
-        <div class="body-col" style="max-width:none; margin-top:12px">
-          <p>Most of my work happens in Kazan and the regions around it. Regional and indigenous music scenes here get described from the outside, in the past tense. I&rsquo;m interested in them as they are &mdash; changing, arguing with themselves, alive.</p>
-          <p>Film and media are the same instinct pointed at a different tool. Production is the part I like most: riders, negotiations, soundchecks, the scaffolding that decides whether anything reaches an audience at all.</p>
-        </div>
-      </div>
+      <div class="scrap note paper-bit" data-reveal
+           style="--x:30%; --y:68%; --w:13%; --h:30px; --rot:-5deg; --z:4"></div>
+      <div class="scrap note paper-bit note--b" data-reveal
+           style="--x:86%; --y:71%; --w:12%; --h:36px; --rot:4deg; --z:4"></div>
 
-      <div class="scrap note" data-reveal
-           style="--x:4%; --y:76%; --w:20%; --rot:1.4deg; --z:5">
-        <ul class="note__list">
-          <li>Russian &mdash; native</li>
-          <li>English &mdash; C1</li>
-          <li>Spanish &mdash; A2</li>
-        </ul>
-      </div>
-
-      <svg class="deco deco--float deco--ink" data-parallax="0.04" aria-hidden="true" focusable="false"
-           style="--x:27%; --y:42%; --w:46px; --rot:-12deg"><use href="#star-6"/></svg>
-      <svg class="deco deco--float" data-parallax="0.05" aria-hidden="true" focusable="false"
-           style="--x:94%; --y:70%; --w:52px; --rot:14deg"><use href="#star-line"/></svg>
-      <svg class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
-           style="--x:30%; --y:95%; --w:40px; --rot:-8deg"><use href="#heart-line"/></svg>
+      <svg viewBox="0 0 100 92" class="deco deco--float" aria-hidden="true" focusable="false"
+           style="--x:92%; --y:24%; --w:44px; --rot:-10deg"><use href="#heart"/></svg>
+      <svg viewBox="0 0 100 100" class="deco deco--float deco--ink" data-parallax="0.04" aria-hidden="true" focusable="false"
+           style="--x:25%; --y:46%; --w:42px; --rot:-12deg"><use href="#star-line"/></svg>
+      <svg viewBox="0 0 100 92" class="deco deco--float deco--ink" data-parallax="0.03" aria-hidden="true" focusable="false"
+           style="--x:47%; --y:95%; --w:38px; --rot:-8deg"><use href="#heart-line"/></svg>
     </div>
 
   </main>
