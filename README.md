@@ -12,8 +12,8 @@ about.html
 art.html                own visual work (placeholder slots)
 contact.html
 projects/
-  moozeon.html          MoozeOn / Музон      — ultramarine
-  shodka.html           Сходка               — hot pink
+  moozeon.html          MoozeOn              — ultramarine
+  shodka.html           Shodka               — hot pink
   dartfest.html         Dartfest 2025        — rust
   yummy-music.html      Yummy Music          — acid green
   short-film.html       Short film           — rust
@@ -200,15 +200,17 @@ Three voices, named once at the top of `site.css` as `--font-display`,
 Nothing else should introduce a fourth face. If they fail to load the page
 still works and falls back to system faces.
 
-Rock Salt has **no Cyrillic**, so **Caveat** follows it in the display stack
-and picks up Сходка and Музон. Fallback is per glyph, so Latin still sets in
-Rock Salt; both are handwriting, so the two only meet on those few words.
-Rock Salt also sets much wider and taller than a normal face — if you swap
-it, expect to retune the display sizes.
+The site is written in Latin throughout: the projects are called **MoozeOn**
+and **Shodka**, not by their Russian names, because the Russian reads as
+noise to anyone who cannot decode it. That means the display face needs no
+Cyrillic — Rock Salt has none — and carries no fallback for it.
 
-Cyrillic: Inter ships it, so labels can be written in Russian directly.
-Space Grotesk does not, so Cyrillic body text falls through to Inter — which
-is why Inter follows it in the stack.
+Rock Salt sets much wider and taller than a normal face. If you swap it,
+expect to retune the display sizes.
+
+If you ever do need Russian on a page, note that Rock Salt and Space Grotesk
+have no Cyrillic; Inter does, which is why it follows Space Grotesk in the
+body stack.
 
 ## Accessibility & graceful degradation
 

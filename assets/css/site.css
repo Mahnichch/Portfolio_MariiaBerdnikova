@@ -35,9 +35,10 @@
   --accent: var(--pink);
 
   /* Three type voices, named once so they can be swapped in one place.
-     Rock Salt has no Cyrillic, so Caveat follows it in the display stack and
-     picks up Сходка / Музон — per-glyph fallback, both handwriting. */
-  --font-display: 'Rock Salt', 'Caveat', 'Permanent Marker', cursive;
+     The site is written in Latin throughout — the projects are called
+     MoozeOn and Shodka rather than their Russian names — so the display
+     face needs no Cyrillic and carries no fallback for it. */
+  --font-display: 'Rock Salt', 'Permanent Marker', cursive;
   --font-label: 'Inter', system-ui, sans-serif;
   --font-body: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 
