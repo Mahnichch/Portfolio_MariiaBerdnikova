@@ -206,6 +206,86 @@ def build_duotone(path, out, width=900, crop=(0.16, 0.20, 1.0, 0.82)):
     print('wrote', out, res.size, os.path.getsize(out) // 1024, 'KB')
 
 
+def drawn_star(size, colour, points=5, inner=0.33, rot=-0.12, seed=5,
+               bow=0.16):
+    """A star that looks drawn with a marker rather than plotted: the sides
+    of each point bow inwards, every vertex is nudged off its true position,
+    and the whole thing is drawn at 4x and scaled down so the curves stay
+    smooth."""
+    S = 4
+    n = size * S
+    rnd = random.Random(seed)
+    cx = cy = n / 2
+    R = n * 0.49
+
+    verts = []
+    for i in range(points * 2):
+        ang = rot + i * math.pi / points - math.pi / 2
+        rad = R * (1 if i % 2 == 0 else inner)
+        rad *= 1 + rnd.uniform(-0.035, 0.035)
+        ang += rnd.uniform(-0.03, 0.03)
+        verts.append((cx + rad * math.cos(ang), cy + rad * math.sin(ang)))
+
+    # Walk each edge as a quadratic curve whose control point is pulled back
+    # towards the middle, which is what gives the points their concave taper.
+    path = []
+    for i in range(len(verts)):
+        p0 = verts[i]
+        p1 = verts[(i + 1) % len(verts)]
+        mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+        ctrl = (mx + (cx - mx) * bow, my + (cy - my) * bow)
+        for s in range(9):
+            t = s / 9
+            u = 1 - t
+            path.append((u * u * p0[0] + 2 * u * t * ctrl[0] + t * t * p1[0],
+                         u * u * p0[1] + 2 * u * t * ctrl[1] + t * t * p1[1]))
+
+    layer = Image.new('RGBA', (n, n), (0, 0, 0, 0))
+    ImageDraw.Draw(layer).polygon(path, fill=colour + (255,))
+    return layer.resize((size, size), Image.LANCZOS)
+
+
+def build_star_snap(path, out, seed, width=560, crop=None, star_scale=1.02,
+                    star_dy=-0.06, star_colour=(244, 132, 178)):
+    """A torn photograph with a drawn star set BEHIND the person — inside the
+    frame, between her and the background, the way the reference has it. That
+    needs her segmented out of her own photograph so the star can go in
+    between."""
+    im = Image.open(path).convert('RGB')
+    if crop:
+        l, t, r, b = crop
+        im = im.crop((int(l * im.width), int(t * im.height),
+                      int(r * im.width), int(b * im.height)))
+    im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
+
+    g = ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1)
+    flat = Image.merge('RGB', (g, g, g)).convert('RGBA')
+
+    cache = 'cut-snapstar-' + os.path.basename(path) + '.png'
+    if not os.path.exists(cache):
+        from rembg import new_session, remove
+        remove(im, session=new_session('u2net_human_seg'),
+               post_process_mask=True).save(cache)
+    person_alpha = Image.open(cache).convert('RGBA').split()[-1]
+    person = flat.copy()
+    person.putalpha(person_alpha)
+
+    star_size = int(min(flat.size) * star_scale)
+    star = drawn_star(star_size, star_colour, seed=seed)
+    sx = (flat.width - star_size) // 2
+    sy = int(flat.height * 0.5 + flat.height * star_dy) - star_size // 2
+
+    composed = flat.copy()
+    composed.alpha_composite(star, (sx, sy))
+    composed.alpha_composite(person)
+    im = composed.convert('RGB')
+
+    mask = torn_mask(im.width, im.height, seed=seed, amp=im.width * 0.032)
+    res = with_paper_lip(im, mask, im.width * 0.013)
+    res.save(out, optimize=True)
+    print('wrote', out, res.size, os.path.getsize(out) // 1024, 'KB')
+
+
 def build_snap(path, out, seed, width=560, bw=False, crop=None):
     im = Image.open(path).convert('RGB')
     if crop:
@@ -217,11 +297,6 @@ def build_snap(path, out, seed, width=560, bw=False, crop=None):
         g = ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1)
         im = Image.merge('RGB', (g, g, g))
 
-    mask = torn_mask(im.width, im.height, seed=seed, amp=im.width * 0.032)
-    res = with_paper_lip(im, mask, im.width * 0.013)
-    res.save(out, optimize=True)
-    print('wrote', out, res.size, os.path.getsize(out) // 1024, 'KB')
-
 
 if __name__ == '__main__':
     base = sys.argv[1] if len(sys.argv) > 1 else '.'
@@ -230,8 +305,8 @@ if __name__ == '__main__':
     build_figure(p['figure'], 'assets/img/about-figure.png',
                  keyed=FIGURE_IS_KEYED)
     build_duotone(p['duotone'], 'assets/img/about-duotone.png')
-    # Black and white; the page sets a pink star behind it.
-    build_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7, bw=True,
-               crop=(0.12, 0.16, 0.95, 0.92))
+    # Black and white, with a drawn star behind her inside the frame.
+    build_star_snap(p['snap1'], 'assets/img/about-snap-1.png', seed=7,
+                    crop=(0.10, 0.14, 0.97, 0.94))
     build_snap(p['snap2'], 'assets/img/about-snap-2.png', seed=23, bw=True,
                crop=(0.12, 0.46, 0.88, 1.0))

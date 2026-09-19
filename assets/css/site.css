@@ -34,6 +34,13 @@
   /* Default accent; every page overrides it with data-accent on <html>. */
   --accent: var(--pink);
 
+  /* Three type voices, named once so they can be swapped in one place.
+     Rock Salt has no Cyrillic, so Caveat follows it in the display stack and
+     picks up Сходка / Музон — per-glyph fallback, both handwriting. */
+  --font-display: 'Rock Salt', 'Caveat', 'Permanent Marker', cursive;
+  --font-label: 'Inter', system-ui, sans-serif;
+  --font-body: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
   --ease: cubic-bezier(0.2, 0.9, 0.25, 1);
   --gutter: clamp(18px, 5vw, 64px);
 }
@@ -61,7 +68,7 @@ body {
   /* Flat warm cream. No texture, no grain, no gradient. */
   background: var(--cream);
   color: var(--ink);
-  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
@@ -103,11 +110,10 @@ img { height: auto; }
 
 /* (1) DISPLAY — oversized hand lettering used as a graphic object. */
 .display {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -40, 'INFM' 60, 'SPAC' 0;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(64px, 17vw, 300px);
-  line-height: 0.82;
+  font-size: clamp(38px, 9.5vw, 150px);
+  line-height: 1.12;
   letter-spacing: -0.02em;
   margin: 0;
   /* It is allowed to cross photos and run off the edge of the viewport. */
@@ -124,11 +130,11 @@ img { height: auto; }
 .display--bleed-l { margin-left: calc(var(--gutter) * -1 - 2vw); }
 .display--bleed-r { margin-right: calc(var(--gutter) * -1 - 6vw); }
 
-.display--sm { font-size: clamp(44px, 9vw, 130px); }
+.display--sm { font-size: clamp(28px, 5.4vw, 78px); }
 
 /* (2) LABEL — tiny uppercase sans. Never near display size. */
 .label {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-label);
   font-size: 11px;
   font-weight: 600;
   line-height: 1.2;
@@ -192,11 +198,10 @@ img { height: auto; }
 }
 .pull-quote--right { margin-left: auto; }
 .pull-quote p {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -30, 'INFM' 70;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(34px, 6vw, 84px);
-  line-height: 0.95;
+  font-size: clamp(22px, 3.4vw, 50px);
+  line-height: 1.25;
   margin: 0;
 }
 .pull-quote .deco--underline {
@@ -539,7 +544,7 @@ button:focus-visible,
   max-width: 34ch;
 }
 .contact__list a {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-size: 18px;
   font-weight: 600;
 }
@@ -684,7 +689,7 @@ button:focus-visible,
   bottom: 10px;
   z-index: 6;
   cursor: pointer;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-label);
 }
 .video-toggle[hidden] { display: none; }
 
@@ -701,8 +706,7 @@ button:focus-visible,
 
 .scrawl {
   margin: 0;
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -20, 'INFM' 90, 'SPAC' 0;
+  font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.18;
   color: var(--ink);
@@ -759,11 +763,10 @@ button:focus-visible,
 .work-row:focus-visible { padding-left: 18px; color: var(--accent); }
 
 .work-row__name {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -35, 'INFM' 50;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(34px, 5.2vw, 78px);
-  line-height: 0.95;
+  font-size: clamp(22px, 3.1vw, 46px);
+  line-height: 1.15;
   flex: 1 1 auto;
 }
 .work-row__meta { flex: 0 0 auto; }
@@ -894,20 +897,13 @@ button:focus-visible,
 .note p { margin: 0 0 0.9em; font-size: clamp(14px, 1.05vw, 16px); }
 .note p:last-child { margin-bottom: 0; }
 
-.note__head {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -30, 'INFM' 60;
-  font-weight: 700;
-  font-size: clamp(20px, 1.9vw, 30px);
-  line-height: 1.05;
-  margin: 0 0 0.5em;
-}
-
 .note__list { list-style: none; margin: 0; padding: 0; }
 .note__list li {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-size: clamp(15px, 1.25vw, 20px);
-  padding: 0.28em 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.4;
+  padding: 0.42em 0;
   border-bottom: 1px solid var(--ink);
 }
 .note__list li:last-child { border-bottom: 0; }
@@ -919,15 +915,15 @@ button:focus-visible,
 .panel { margin: 0; }
 .panel img { display: block; width: 100%; }
 
-/* A marker heading with a scribbled rule under it. */
+/* A heading with a scribbled rule under it. Same display voice and settings
+   as every other heading on the site — no separate treatment. */
 .marker-head {
-  font-family: 'Shantell Sans', 'Permanent Marker', cursive;
-  font-variation-settings: 'BNCE' -30, 'INFM' 40;
-  font-weight: 800;
-  font-size: clamp(22px, 2.4vw, 40px);
-  letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(19px, 1.9vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   margin: 0;
-  text-transform: uppercase;
 }
 .marker-head + .deco--underline { width: 68%; height: 18px; color: var(--ink); }
 
@@ -991,6 +987,10 @@ button:focus-visible,
     transform: rotate(var(--rot, 0deg));
   }
   .scrap:nth-child(even) { justify-self: end; }
+
+  /* Blank scraps only mean something tucked between other pieces; stacked in
+     a column they are just empty boxes at the end of the page. */
+  .paper-bit { display: none; }
   /* Tape hangs off the edge of the screen once things are full width. */
   .taped::before { left: 8px; }
   .taped::after { right: 8px; }

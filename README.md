@@ -189,15 +189,26 @@ under Settings → Pages → Custom domain.
 
 ## Fonts
 
-Loaded from Google Fonts over the network: **Shantell Sans** (hand-drawn
-display lettering and the handwritten asides), **Inter** (tiny uppercase
-labels) and **Space Grotesk** (body). If they fail to load the page still
-works and falls back to system faces.
+Three voices, named once at the top of `site.css` as `--font-display`,
+`--font-label` and `--font-body`, so swapping one is a single line:
 
-Cyrillic: Shantell Sans and Inter both ship Cyrillic, so display titles and
-labels can be written in Russian directly (`СХОДКА`, `Музон`). Space Grotesk
-does not, so Cyrillic body text falls through to Inter — which is why Inter
-follows it in the stack.
+- **Rock Salt** — the rough handwritten display face, for big lettering and
+  the handwritten asides.
+- **Inter** — tiny uppercase labels.
+- **Space Grotesk** — body copy.
+
+Nothing else should introduce a fourth face. If they fail to load the page
+still works and falls back to system faces.
+
+Rock Salt has **no Cyrillic**, so **Caveat** follows it in the display stack
+and picks up Сходка and Музон. Fallback is per glyph, so Latin still sets in
+Rock Salt; both are handwriting, so the two only meet on those few words.
+Rock Salt also sets much wider and taller than a normal face — if you swap
+it, expect to retune the display sizes.
+
+Cyrillic: Inter ships it, so labels can be written in Russian directly.
+Space Grotesk does not, so Cyrillic body text falls through to Inter — which
+is why Inter follows it in the stack.
 
 ## Accessibility & graceful degradation
 
