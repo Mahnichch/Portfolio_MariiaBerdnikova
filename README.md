@@ -111,19 +111,30 @@ stack.
 It borrows the *arrangement* of a scrapbook but not its finish — the ground
 stays flat cream, and there is no aged paper, sepia or grain anywhere.
 
-The two large pieces both come from **one** photograph, the way the
-reference does it: a black-and-white cut-out with a cream sticker edge, and
-the same picture blown up and flattened into two tones of pink, running off
-the top and right edges. Rebuild both from a different photo with:
+Every photograph on it is **torn rather than cropped square**, and they come
+from four different shots — the same thing the reference does. Rebuild them
+all from new photographs with:
 
 ```bash
 pip install pillow numpy "rembg[cpu]"
-python3 tools/make-about-photos.py your-photo.jpg
+python3 tools/make-about-photos.py path/to/photos
 ```
 
-Delete the `cut-raw.png` it caches before running it on a new photo. Tones
-for the duotone are `DUO_DARK` / `DUO_LIGHT` at the top of the script, and
-the crop it enlarges is the `crop` argument of `build_duotone`.
+Which photo plays which part is the `PHOTOS` dict at the top of that script:
+
+- **figure** — cut out with a segmentation model and given a cream sticker
+  edge. Give it a **full-length** shot: one cropped mid-body ends on a
+  straight cut across fabric.
+- **duotone** — a different shot, blown up until it goes soft and flattened
+  to two tones. It runs off the top and right of the page, so only its left
+  and bottom edges are torn.
+- **snap1 / snap2** — torn photographs. `crop` in each `build_snap` call
+  frames them.
+
+The tear itself is `torn_edge()`: sine waves of falling amplitude around
+each side, so the low frequencies drift and the high ones roughen. A thin
+cream lip is grown just outside the tear — the pale fibre you get along a
+real rip, and what stops a photograph dissolving into the page.
 
 Two details worth knowing before you edit it:
 

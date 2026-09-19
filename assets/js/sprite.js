@@ -98,6 +98,29 @@
     '        filter="url(#rough)" d="M4 12c52-6 104-4 192-5"/>',
     '</symbol>',
 
+    /* --- hand-drawn heart ------------------------------------------------ */
+    '<symbol id="heart" viewBox="0 0 100 92">',
+    '  <path fill="currentColor" filter="url(#rough)"',
+    '        d="M50 88C20 66 4 48 4 30 4 14 16 4 30 4c10 0 17 6 20 13 3-7 10-13 20-13',
+    '           14 0 26 10 26 26 0 18-16 36-46 58z"/>',
+    '</symbol>',
+
+    /* --- outlined heart, drawn rather than filled ------------------------ */
+    '<symbol id="heart-line" viewBox="0 0 100 92">',
+    '  <path fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"',
+    '        filter="url(#rough)"',
+    '        d="M50 86C22 65 7 48 7 31 7 16 18 7 30 7c10 0 17 6 20 13 3-7 10-13 20-13',
+    '           12 0 23 9 23 24 0 17-15 34-43 55z"/>',
+    '</symbol>',
+
+    /* --- outlined 5-point star ------------------------------------------- */
+    '<symbol id="star-line" viewBox="0 0 100 100">',
+    '  <path fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"',
+    '        filter="url(#rough)"',
+    '        d="M50 4 61.3 34.4 93.8 35.8 68.4 56 77 87.2 50 69.3 23 87.2 31.6 56',
+    '           6.2 35.8 38.7 34.4Z"/>',
+    '</symbol>',
+
     /* --- short connecting thread (mobile card stack) --------------------- */
     '<symbol id="thread-seg" viewBox="0 0 40 56">',
     '  <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"',

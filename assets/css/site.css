@@ -868,17 +868,8 @@ button:focus-visible,
 
 .scrapbook {
   position: relative;
-  min-height: clamp(720px, 84vw, 1120px);
+  min-height: clamp(1000px, 115vw, 1650px);
   margin: clamp(24px, 4vw, 48px) 0 0;
-}
-
-.scrap {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--w, 26%);
-  transform: rotate(var(--rot, 0deg));
-  z-index: var(--z, 1);
 }
 
 /* --- notes: a block of cream with torn top and bottom edges ------------- */
@@ -952,6 +943,19 @@ button:focus-visible,
 .taped::before { left: -16px; top: -11px; transform: rotate(-28deg); }
 .taped::after  { right: -16px; bottom: 26px; transform: rotate(-24deg); }
 .taped--one::after { display: none; }
+
+/* Placement for every piece in the collage. This has to come after .snap
+   and .taped, which also set `position` — at equal specificity the later
+   rule wins, and before this move the photographs stayed in normal flow,
+   stretching the stage and ignoring their coordinates entirely. */
+.scrap {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w, 26%);
+  transform: rotate(var(--rot, 0deg));
+  z-index: var(--z, 1);
+}
 
 /* A caption written on a strip of tape rather than in a box. */
 .tape-label {
