@@ -457,6 +457,17 @@ button:focus-visible,
   margin-top: clamp(34px, 5vw, 66px);
 }
 
+/* A portrait collage is much taller than a landscape cut-out, so its hero
+   reserves more room and the prose below it still clears. */
+.hero--tall { min-height: clamp(420px, 50vw, 700px); }
+
+.hero__photo--collage {
+  width: min(32%, 360px);
+  /* Pulled in far enough that the display word crosses it, as on the
+     project pages. */
+  right: 23%;
+}
+
 .prose {
   position: relative;
   z-index: 2;

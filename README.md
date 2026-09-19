@@ -18,6 +18,8 @@ projects/
   yummy-music.html      Yummy Music          — acid green
   short-film.html       Short film           — rust
   research.html         Music & liminality   — ultramarine
+tools/
+  make-about-collage.py  regenerates the About collage from a photo
 assets/
   video/hero.mp4        the front-page film (H.264)
   video/hero.webm       the same film (VP9)
@@ -96,6 +98,26 @@ Below the hero, `.work-list` is the project index; add or reorder rows.
 widths, nudge the rotations a degree or two, and let items overlap by
 giving neighbours close coordinates. Below 860px they stop being
 absolutely positioned and stack automatically.
+
+## The About collage
+
+`assets/img/about-collage.jpg` is built from a photograph: the person is cut
+out, turned black and white, given a sticker outline and set on flat blue
+with hand-drawn stars. To rebuild it from a different photo:
+
+```bash
+pip install pillow numpy "rembg[cpu]"
+python3 tools/make-about-collage.py your-photo.jpg
+```
+
+Add `cream` as a second argument for the alternative colourway (ultramarine
+ground with cream stars instead of blue and yellow). The first run downloads
+a ~176MB segmentation model; after that it is offline. Delete the
+`cut-raw.png` it leaves behind to re-cut from a new photo.
+
+This is a one-off tool, not a build step — the site itself still has none.
+Star positions, sizes and colours are plain numbers near the bottom of the
+script.
 
 ## Preview locally
 
